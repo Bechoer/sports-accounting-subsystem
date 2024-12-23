@@ -81,7 +81,7 @@ void readFromFile()
     }
     for (int i = 0; i < m + w; i++)
     {
-        fscanf(fp2, "%d %s",&sports[i].number,sports[i].name);
+        fscanf(fp2, "%d %s",&sports[i].number,&sports[i].name);
         fscanf(fp2, "%d", &sports[i].award_num);
         for (int j = 0; j < sports[i].award_num; j++)
         {
@@ -614,16 +614,18 @@ void InputName()///输入学校和项目名称菜单
             printf("请按照编号顺序输入项目名称（输入 stop ，则停止输入）：\n");
             for (int i = 0; i < m + w; i++)
             {
-                
+                char tmp[20] = { '\0' };
                 if (i < m)
                 {
                     printf("男子项目 编号 %d：", i + 1);
+                    scanf("%s", &tmp);
                 }
                 else
                 {
                     printf("女子项目 编号 %d：", i + 1);
+                    scanf("%s", &tmp);
                 }
-                char tmp[20] = { '\0' };
+                
                 if (strcmp(tmp, "stop") == 0)
                 {
                     printf("输入停止!\n");
@@ -671,6 +673,7 @@ void showAllSchools()//所有参赛学校
 }
 void showAllGames()//展示所有比赛项目
 {
+    readFromFile();
     system("cls");
     printf("\n\n");
     printf("\t|========所有比赛项目=======|\n");
