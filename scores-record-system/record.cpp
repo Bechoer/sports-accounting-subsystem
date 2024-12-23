@@ -45,6 +45,7 @@ void firstUsed()//程序数据清零
         for (int i = 0; i < 50; i++) {
             sports[i].award_num = default_num; // 默认值3
             fprintf(fp, "%d\n", default_num);
+            fprintf(fp, "%d\n%d\n%d",20 ,10 ,10);
         }
         return;
     }
@@ -194,7 +195,7 @@ loop1:
     firstUsed();
     for (int pos = 0; pos < m + w; pos++)
     {
-        printf("项目名称:%s,取前%d名:\n",sports[pos+1].name,sports[pos+1].award_num);
+        printf("项目名称:%s,取前%d名:\n",sports[pos].name,sports[pos].award_num);
         int award_num = sports[pos].award_num;
         printf("输入获奖学校编号:");
 
@@ -217,14 +218,15 @@ loop2:
     system("cls");
     printf("\n\n\n");
     printf("\t\t**************************************************\n");
-    printf("\t\t*                                                *\n");
     printf("\t\t*     您的输入已完成，请输入以下操作对应编号     *\n");
-    printf("\t\t*                                                *\n");
-    printf("\t\t*             1.保存输入                         *\n");
-    printf("\t\t*             2.重新输入                         *\n");
-    printf("\t\t*             3.返回主菜单                       *\n");
-    printf("\t\t*             4.退出系统                         *\n");
-    printf("\t\t*                                                *\n");
+    printf("\t\t*================================================*\n");
+    printf("\t\t*       +      1.保存输入       +                *\n");
+    printf("\t\t*================================================*\n");
+    printf("\t\t*       +      2.重新输入       +                *\n");
+    printf("\t\t*================================================*\n");
+    printf("\t\t*       +      3.返回主菜单     +                *\n");
+    printf("\t\t*================================================*\n");
+    printf("\t\t*       +      4.退出系统       +                *\n");
     printf("\t\t**************************************************\n");
     if (flag == 0)printf("请输入您选择的选项对应的编号：\n");
     else printf("没有您输入的选项编号，请重新输入：\n");
@@ -267,33 +269,36 @@ void showSchool()///输出学校菜单
         system("cls");
         printf("\n\n\n");
         printf("\t\t******************************************\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t*          1.按学校编号列出              *\n");
-        printf("\t\t*          2.按学校总分列出              *\n");
-        printf("\t\t*          3.按男子项目总分列出          *\n");
-        printf("\t\t*          4.按女子项目总分列出          *\n");
-        printf("\t\t*          5.返回主菜单                  *\n");
-        printf("\t\t*          6.退出系统                    *\n");
-        printf("\t\t*                                        *\n");
+        printf("\t\t*     +    1.按学校编号列出      +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    2.按学校总分列出      +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    3.按男子项目总分列出  +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    4.按女子项目总分列出  +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    5.返回主菜单          +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    6.退出系统            +       *\n");
         printf("\t\t******************************************\n");
         if (flag == 0)
-            printf("请输入选项对应编号：\n");
-        else printf("没有您输入的选项，请重新输入：\n");
+            printf("请输入选项对应编号：");
+        else printf("没有您输入的选项，请重新输入：");
         int option;
         scanf("%d", &option);
         switch (option)
         {
         case 1:
             system("cls");
-            printf("\t|\t\t学校按照编号列出\t     |\n");  
-            printf("\t|____________________________________________|\n");
-            printf("\t|学校编号|学校名称|学校总分|男子总分|女子总分|\n");
-            printf("\t|________|________|________|________|________|\n");
+            printf("\t|\t\t学校按照编号列出                       |\n");  
+            printf("\t|______________________________________________________|\n");
+            printf("\t|学校编号|     学校名称     |学校总分|男子总分|女子总分|\n");
+            printf("\t|________|__________________|________|________|________|\n");
             for (int i = 0; i < n; i++)
             {
-                printf("\t|%8d|%8s|%8d|%8d|%8d|\n",
+                printf("\t|%8d|%18s|%8d|%8d|%8d|\n",
                     schools[i].number, schools[i].name, schools[i].total_score[0], schools[i].total_score[1], schools[i].total_score[2]);
-                printf("\t|________|________|________|________|________|\n");
+                printf("\t|________|__________________|________|________|________|\n");
             }
             printf("-----按任意键返回上一级-----");
             getchar();
@@ -309,15 +314,15 @@ void showSchool()///输出学校菜单
                 temp[i] = schools[i];
             }
             merge_sort(temp, 0, n, option - 2, temp1);
-            printf("\t|\t\t学校按照%s列出\t     |\n", str[option - 2]);
-            printf("\t|____________________________________________|\n");
-            printf("\t|学校编号|学校名称|学校总分|男子总分|女子总分|\n");
-            printf("\t|________|________|________|________|________|\n");
+            printf("\t|\t\t学校按照%s列出\t                 |\n", str[option - 2]);
+            printf("\t|______________________________________________________|\n");
+            printf("\t|学校编号|     学校名称     |学校总分|男子总分|女子总分|\n");
+            printf("\t|________|__________________|________|________|________|\n");
             for (int i = 0; i < n; i++)
             {
-                printf("\t|%8d|%8s|%8d|%8d|%8d|\n",
+                printf("\t|%8d|%18s|%8d|%8d|%8d|\n",
                     temp[i].number, temp[i].name, temp[i].total_score[0], temp[i].total_score[1], temp[i].total_score[2]);
-                printf("\t|________|________|________|________|________|\n");
+                printf("\t|________|__________________|________|________|________|\n");
             }
             printf("-----按任意键返回上一级-----");
             getchar();
@@ -346,22 +351,25 @@ void showSports()///输出查找项目菜单
         system("cls");
         printf("\n\n\n");
         printf("\t\t******************************************\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t*          1.查询学校项目成绩            *\n");
-        printf("\t\t*          2.查询项目获奖学校            *\n");
-        printf("\t\t*          3.返回主菜单                  *\n");
-        printf("\t\t*          4.退出系统                    *\n");
-        printf("\t\t*                                        *\n");
+        printf("\t\t*     +    1.查询学校项目成绩   +        *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    2.查询项目获奖学校   +        *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    3.返回主菜单         +        *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    4.退出系统           +        *\n");
         printf("\t\t******************************************\n");
         if (flag == 0)
             printf("请输入选项对应编号：");
         else printf("您输入的选项不存在，请重新输入：");
         int option;
         scanf("%d", &option);
+        printf("*****************************************************\n");
+
         switch (option)
         {
         case 1:
-            system("cls");
+            //system("cls");
             printf("请输入要查询的学校编号：");
             int num;
             scanf("%d", &num);
@@ -370,14 +378,16 @@ void showSports()///输出查找项目菜单
             int sp;
             scanf("%d", &sp);
             sp--;
-            printf("%s的%s项目获奖得分情况如下：\n", schools[num].name, sports[sp].name);
-            printf("%d\n\n", schools[num].scores[sp]);
+            printf("==================================================\n");
+            printf("|%s的%s项目获奖得分情况：", schools[num].name, sports[sp].name);
+            printf("%3d 分\n", schools[num].scores[sp]);
+            printf("==================================================\n");
             printf("-----按任意键返回上一级-----");
             getchar();
             getchar();
             break;
         case 2:
-            system("cls");
+            //system("cls");
             printf("请输入要查询的项目编号：");
             int num1;
             scanf("%d", &num1);
@@ -388,12 +398,13 @@ void showSports()///输出查找项目菜单
             }
             num1--;
             printf("您查询的%s项目的获奖学校如下：\n", sports[num1].name);
-            printf("__________________\n");
-            printf("|学校编号|学校名称|\n");
+            printf("\t_____________________________\n");
+            printf("\t|学校编号|     学校名称     |\n");
+            printf("\t|________|__________________|\n");
             for (int i = 0; i < sports[num1].award_num; i++)
             {
-                printf("|%8d|%8s|\n", sports[num1].win_school[i], schools[sports[num1].win_school[i]].name);
-                printf("|________|________|\n");
+                printf("\t|%8d|%18s|\n", schools[sports[num1].win_school[i]].number, schools[sports[num1].win_school[i]].name);
+                printf("\t|________|__________________|\n");
             }
             printf("-----按任意键返回上一级-----");
             getchar();
@@ -421,29 +432,35 @@ void setting()///设置菜单
         system("cls");
         printf("\n\n\n");
         printf("\t\t******************************************\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t*           1.设置项目前三或前五         *\n");
-        printf("\t\t*           2.设置学校数目               *\n");
-        printf("\t\t*           3.设置男子项目数目           *\n");
-        printf("\t\t*           4.设置女子项目数目           *\n");
-        printf("\t\t*           5.返回主菜单                 *\n");
-        printf("\t\t*           6.退出系统                   *\n");
-        printf("\t\t*                                        *\n");
+        printf("\t\t*     +    1.设置项目前三或前五  +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    2.设置学校数目        +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    3.设置男子项目数目    +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    4.设置女子项目数目    +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    5.返回主菜单          +       *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +    6.退出系统            +       *\n");
+        printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
-        printf("请输入选项对应编号：\n");
+       
+        printf("请输入选项对应编号：");
         int option;
         scanf("%d", &option);
+        printf("**********************************************\n");
         switch (option)
         {
         case 1:
             while (1)
             {
-                system("cls");
-                printf("请输入要设置的项目编号：\n");
+                //system("cls");
+                printf("请输入要设置的项目编号：");
                 int n1;
                 scanf("%d", &n1);
                 n1--;
-                printf("请输入3或5设置该项目要取的获奖名次：\n");
+                printf("请输入3或5设置该项目要取的获奖名次：");
                 while (1)
                 {
                     int n2;
@@ -454,25 +471,26 @@ void setting()///设置菜单
                         break;
                     }
                     system("cls");
-                    printf("您输入的数据有误，请重新输入：\n");
+                    printf("您输入的数据有误，请重新输入：");
                 }
-                printf("继续设置请输入1，返回上一级请输入2：\n");
+                printf("继续设置请输入1，返回上一级请输入2：");
                 scanf("%d", &n1);
                 if (n1 == 1)continue;
                 else if (n1 == 2)break;
             }
             break;
         case 2:
-            system("cls");
-            printf("请输入学校数目：\n");
+            //system("cls");
+            printf("请输入学校数目：");
             while (1)
             {
                 scanf("%d", &n);
+                //参赛学校数量不能大于20，不能小于1
                 if (n <= 20 && n >= 1)break;
                 else
                 {
-                    system("cls");
-                    printf("您输入的学校数目不合法，请重新输入：\n");
+                    //system("cls");
+                    printf("您输入的学校数目不合法，请重新输入：");
                 }
             }
             printf("-----按任意键返回上一级-----\n");
@@ -480,16 +498,17 @@ void setting()///设置菜单
             getchar();
             break;
         case 3:
-            system("cls");
-            printf("请输入男子项目数目：\n");
+            //system("cls");
+            printf("请输入男子项目数目：");
             while (1)
             {
                 scanf("%d", &m);
+                //男子项目个数不能大于20，不能小于1
                 if (m <= 20 && m >= 0)break;
                 else
                 {
-                    system("cls");
-                    printf("您输入的男子项目数目不合法，请重新输入：\n");
+                    //system("cls");
+                    printf("您输入的男子项目数目不合法，请重新输入：");
                 }
             }
             printf("-----按任意键返回上一级-----\n");
@@ -497,16 +516,17 @@ void setting()///设置菜单
             getchar();
             break;
         case 4:
-            system("cls");
-            printf("请输入女子项目数目：\n");
+            //system("cls");
+            printf("请输入女子项目数目：");
             while (1)
             {
                 scanf("%d", &w);
+                //女子项目个数不能大于20，不能小于1
                 if (w <= 20 && w >= 0)break;
                 else
                 {
-                    system("cls");
-                    printf("您输入的女子项目数目不合法，请重新输入：\n");
+                    //system("cls");
+                    printf("您输入的女子项目数目不合法，请重新输入：");
                 }
             }
             printf("-----按任意键返回上一级-----\n");
@@ -532,12 +552,12 @@ void setting()///设置菜单
         }
         for (int i = 0; i < m + w; i++)
         {
-            fprintf(fp, "%d ", sports[i].award_num);
+            fprintf(fp, "%d ", sports[i].award_num);// 取3或者5名
         }
-        for (int i = m + w; i < 50; i++)
-        {
-            fprintf(fp, "%d ", default_num);
-        }
+        //for (int i = m + w; i < 50; i++)
+        //{
+        //    fprintf(fp, "%d ", default_num);//
+        //}
         fprintf(fp, "\n%d\n%d\n%d\n", n, m, w);
         fclose(fp);
     }
@@ -551,12 +571,14 @@ void InputName()///输入学校和项目名称菜单
         system("cls");
         printf("\n\n\n");
         printf("\t\t******************************************\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t*           1.输入学校名称               *\n");
-        printf("\t\t*           2.输入比赛项目名称           *\n");
-        printf("\t\t*           3.返回主菜单                 *\n");
-        printf("\t\t*           4.退出系统                   *\n");
-        printf("\t\t*                                        *\n");
+        printf("\t\t*     +      1.输入学校名称        +     *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +      2.输入比赛项目名称    +     *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +      3.返回主菜单          +     *\n");
+        printf("\t\t*========================================*\n");
+        printf("\t\t*     +      4.退出系统            +     *\n");
+        printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
         if (flag == 0)
             printf("请输入选项对应编号：\n");
@@ -567,11 +589,20 @@ void InputName()///输入学校和项目名称菜单
         {
         case 1:
             system("cls");
-            printf("请按照编号顺序输入学校名称：\n");
+            printf("请按照编号顺序输入学校名称（输入 stop ，则停止输入）：\n");
             for (int i = 0; i < n; i++)
             {
                 printf("编号 %d：", i + 1);
-                scanf("%s", schools[i].name);
+                char tmp[20] = {'\0'};
+                scanf("%s", tmp);
+                if (strcmp(tmp, "stop") == 0)
+                {
+                    printf("输入停止!\n");
+                    break;
+                }
+                strcpy(schools[i].name, tmp);
+                schools[i].number = i + 1;
+                //printf("...%s", schools[i].name);
             }
             printf("-----按任意键返回上一级-----\n");
             saveToFile();
@@ -580,19 +611,26 @@ void InputName()///输入学校和项目名称菜单
             break;
         case 2:
             system("cls");
-            printf("请按照编号顺序输入项目名称：\n");
+            printf("请按照编号顺序输入项目名称（输入 stop ，则停止输入）：\n");
             for (int i = 0; i < m + w; i++)
             {
+                
                 if (i < m)
                 {
                     printf("男子项目 编号 %d：", i + 1);
-                    scanf("%s", sports[i].name);
                 }
                 else
                 {
                     printf("女子项目 编号 %d：", i + 1);
-                    scanf("%s", sports[i].name);
                 }
+                char tmp[20] = { '\0' };
+                if (strcmp(tmp, "stop") == 0)
+                {
+                    printf("输入停止!\n");
+                    break;
+                }
+                strcpy(sports[i].name, tmp);
+                sports[i].number = i + 1;
             }
             printf("-----按任意键返回上一级-----\n");
             saveToFile();
@@ -613,6 +651,42 @@ void InputName()///输入学校和项目名称菜单
         }
     }
 }
+void showAllSchools()//所有参赛学校
+{
+    system("cls");
+    printf("\n\n");
+    printf("\t|========所有参赛学校=======|\n");
+    printf("\t_____________________________\n");
+    printf("\t|学校编号|     学校名称     |\n");
+    printf("\t|________|__________________|\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("\t|%8d|%18s|\n",
+            schools[i].number, schools[i].name);
+        printf("\t|________|__________________|\n");
+    }
+    printf("-----按任意键返回上一级-----");
+    getchar();
+    getchar();
+}
+void showAllGames()//展示所有比赛项目
+{
+    system("cls");
+    printf("\n\n");
+    printf("\t|========所有比赛项目=======|\n");
+    printf("\t_____________________________\n");
+    printf("\t|项目编号|     项目名称     |\n");
+    printf("\t|________|__________________|\n");
+    for (int i = 0; i < m+w; i++)
+    {
+        printf("\t|%8d|%18s|\n",
+            sports[i].number, sports[i].name);
+        printf("\t|________|__________________|\n");
+    }
+    printf("-----按任意键返回上一级-----");
+    getchar();
+    getchar();
+}
 
 void menu()///主菜单的操作
 {
@@ -621,19 +695,24 @@ void menu()///主菜单的操作
     {
         system("cls");
         printf("\n\n");
+        //打印菜单栏
         printf("\n\t\t+==============================================================+\n");
         printf("\t\t+                运动会分数统计系统  主菜单                    +\n");
         printf("\t\t+==============================================================+\n");
         printf("\t\t+ 【信息录入】                                                 +\n");
-        printf("\t\t+     1. 输入项目成绩       4.输入学校和项目名称               +\n");
+        printf("\t\t+     1. 输入学校和项目名称       2.输入项目成绩               +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【查看信息】                                                 +\n");
-        printf("\t\t+     2.查看学校成绩        3.查看项目成绩                     +\n");
+        printf("\t\t+     3.查看参赛学校        4.查看比赛项目                     +\n");
+        printf("\t\t+     5.查看学校成绩        6.查看项目成绩                     +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【设置】                                                     +\n");
-        printf("\t\t+     5.设置                                                   +\n");
+        printf("\t\t+     7.设置                                                   +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ 6. 退出系统                                                  +\n");
+        printf("\t\t+  0. 退出系统                                                 +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 【提示】                                                     +\n");
+        printf("\t\t+     初次使用时，请先录入相关信息                             +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
         if (flag == 0)
             printf("请输入对应选项的编号：");
@@ -642,22 +721,28 @@ void menu()///主菜单的操作
         scanf("%d", &option);
         switch (option)
         {
-        case 1:
-            inputScores();
-            break;
-        case 2:
-            showSchool();
-            break;
-        case 3:
-            showSports();
-            break;
-        case 4:
+        case 1://输入学校和项目名称
             InputName();
             break;
-        case 5:
+        case 2://输入项目成绩
+            inputScores();
+            break;
+        case 3://查看参赛学校
+            showAllSchools();
+            break;
+        case 4://查看比赛项目
+            showAllGames();
+            break;
+        case 5://查看学校成绩
+            showSchool();
+            break;
+        case 6://查看项目成绩
+            showSports();
+            break;
+        case 7://设置
             setting();
             break;
-        case 6:
+        case 0://退出系统
             saveToFile();
             Sleep(1000);
             exit(0);
