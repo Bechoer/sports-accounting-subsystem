@@ -80,7 +80,7 @@ void readFromFile()
     }
     for (int i = 0; i < m + w; i++)
     {
-        fscanf(fp2, "%s", sports[i].name);
+        fscanf(fp2, "%d %s",&sports[i].number,sports[i].name);
         fscanf(fp2, "%d", &sports[i].award_num);
         for (int j = 0; j < sports[i].award_num; j++)
         {
@@ -89,7 +89,7 @@ void readFromFile()
     }
     fclose(fp2);
 }
-void initialization()///初始化操作，在此文件操作，进行打开程序的读取初始化操作
+void initialization()//初始化操作，在此文件操作，进行打开程序的读取初始化操作
 {
     readFromFile();
 
@@ -135,7 +135,7 @@ void saveToFile()//将输入到内存中的数据存到文件中
     }
     for (int i = 0; i < m + w; i++)
     {
-        fprintf(fp2, "%s\n", sports[i].name);
+        fprintf(fp2, "%d %s\n",sports[i].number ,sports[i].name);
         fprintf(fp2, "%d\n", sports[i].award_num);
         for (int j = 0; j < sports[i].award_num; j++)
         {
@@ -620,20 +620,24 @@ void menu()///主菜单的操作
     while (1)
     {
         system("cls");
-        printf("\n\n\n");
-        printf("\t\t******************************************\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t*           1.输入项目成绩               *\n");
-        printf("\t\t*           2.查看学校成绩               *\n");
-        printf("\t\t*           3.查看项目成绩               *\n");
-        printf("\t\t*           4.输入学校和项目名称         *\n");
-        printf("\t\t*           5.设置                       *\n");
-        printf("\t\t*           6.退出                       *\n");
-        printf("\t\t*                                        *\n");
-        printf("\t\t******************************************\n");
+        printf("\n\n");
+        printf("\n\t\t+==============================================================+\n");
+        printf("\t\t+                运动会分数统计系统  主菜单                    +\n");
+        printf("\t\t+==============================================================+\n");
+        printf("\t\t+ 【信息录入】                                                 +\n");
+        printf("\t\t+     1. 输入项目成绩       4.输入学校和项目名称               +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 【查看信息】                                                 +\n");
+        printf("\t\t+     2.查看学校成绩        3.查看项目成绩                     +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 【设置】                                                     +\n");
+        printf("\t\t+     5.设置                                                   +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 6. 退出系统                                                  +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
         if (flag == 0)
-            printf("请输入对应选项的编号：\n");
-        else printf("没有您输入的选项，请重新输入：\n");
+            printf("请输入对应选项的编号：");
+        else printf("没有您输入的选项，请重新输入：");
         int option;
         scanf("%d", &option);
         switch (option)

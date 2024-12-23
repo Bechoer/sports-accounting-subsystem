@@ -8,6 +8,7 @@
 typedef struct Sport
 {
     char name[20];       //项目名称
+    int number;         //项目编号
     int win_school[5];   //获奖前三或前五学校的编号
     int award_num;       //这个运动项目取名次的数目，取3或5
 } Sport;                 //存放项目信息
