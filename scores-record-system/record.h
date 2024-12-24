@@ -42,5 +42,9 @@ void showSports();
 void setting();
 //输入学校和项目名称菜单
 void InputName();
+//所有参赛学校
+void showAllSchools();
+//展示所有比赛项目
+void showAllGames();
 //主菜单的操作
 void menu();

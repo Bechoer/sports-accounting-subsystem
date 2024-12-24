@@ -16,7 +16,8 @@ int five[5] = { 7,5,3,2,1 };  //获得前五名的学校积分
 
 void readFromFile();//从数据文件读取存有的运动会成绩信息
 
-void firstUsed()//程序数据清零
+//第一次使用，程序清零数据
+void firstUsed()
 {
     //遍历所有学校和项目，清空分数数组。
     //将学校总分（0）、男子总分（1）、女子总分（2）及对应的各个项目得分设置为0
@@ -49,12 +50,13 @@ void firstUsed()//程序数据清零
         }
         return;
     }
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < m+w; i++)
     {
         fscanf(fp, "%d", &sports[i].award_num);
     }
     fclose(fp);
 }
+//从文件中读取数据
 void readFromFile()
 {
     FILE* fp1 = fopen("schools.txt", "r");
@@ -62,16 +64,41 @@ void readFromFile()
     {
         firstUsed();
     }
-    for (int i = 0; i < n; i++)
-    {
-        fscanf(fp1, "%s", schools[i].name);
-        fscanf(fp1, "%d %d %d %d",
-            &schools[i].number,&schools[i].total_score[0], &schools[i].total_score[1], &schools[i].total_score[2]);
-        for (int j = 0; j < m + w; j++)
-        {
-            fscanf(fp1, "%d", &schools[i].scores[j]);
+    int cnt = 0;//记录有多少所学校
+    while (1) {
+        // 读取学校名称
+        if (fscanf(fp1, "%s", schools[cnt].name) != 1) {
+            break;
         }
+        // 读取学校编号、团体得分、男子项目得分、女子项目得分
+        if (fscanf(fp1, "%d %d %d %d",
+            &schools[cnt].number,
+            &schools[cnt].total_score[0],
+            &schools[cnt].total_score[1],
+            &schools[cnt].total_score[2]) != 4) {
+            break;
+        }
+        for (int j = 0; j < m + w; j++) {
+            //各个项目得分
+            if (fscanf(fp1, "%d", &schools[cnt].scores[j]) != 1) {
+                break;
+            }
+        }
+        cnt++;
     }
+    n = cnt;
+    //for (int i = 0; i < n; i++)
+    //{
+    //    //学校名称
+    //    fscanf(fp1, "%s", schools[i].name);
+    //    //学校编号 团体得分 男子项目得分 女子项目得分
+    //    fscanf(fp1, "%d %d %d %d",
+    //        &schools[i].number,&schools[i].total_score[0], &schools[i].total_score[1], &schools[i].total_score[2]);
+    //    for (int j = 0; j < m + w; j++)
+    //    {
+    //        fscanf(fp1, "%d", &schools[i].scores[j]);//各个项目得分
+    //    }
+    //}
     fclose(fp1);
 
     FILE* fp2 = fopen("sports.txt", "r");
@@ -81,17 +108,21 @@ void readFromFile()
     }
     for (int i = 0; i < m + w; i++)
     {
+        //比赛项目编号 项目名称
         fscanf(fp2, "%d %s",&sports[i].number,sports[i].name);
+        //比赛项目取名次的数 3/5
         fscanf(fp2, "%d", &sports[i].award_num);
         for (int j = 0; j < sports[i].award_num; j++)
         {
-            fscanf(fp2, "%d", &sports[i].win_school[j]);
+            fscanf(fp2, "%d", &sports[i].win_school[j]);//获得前三或前五的学校
         }
     }
     fclose(fp2);
 }
-void initialization()//初始化操作，在此文件操作，进行打开程序的读取初始化操作
+//初始化操作，在此文件操作，进行打开程序的读取初始化操作
+void initialization()
 {
+    //读取
     readFromFile();
 
     FILE* fp = fopen("setting.txt", "r");
@@ -99,15 +130,15 @@ void initialization()//初始化操作，在此文件操作，进行打开程序的读取初始化操作
     {
         firstUsed();
     }
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < m+w; i++)
     {
         fscanf(fp, "%d", &sports[i].award_num);
     }
     fscanf(fp, "%d%d%d", &n, &m, &w);
     fclose(fp);
 }
-
-void saveToFile()//将输入到内存中的数据存到文件中
+//将输入到内存中的数据存到文件中
+void saveToFile()
 {
     FILE* fp1 = fopen("schools.txt", "w");
     if (fp1 == NULL)
@@ -146,8 +177,8 @@ void saveToFile()//将输入到内存中的数据存到文件中
     }
     fclose(fp2);
 }
-
-void merge_sort(School temp[], int st, int en, int option, School temp1[])//按照不同的参数对学校数组进行排序
+//按照不同的参数对学校数组进行排序
+void merge_sort(School temp[], int st, int en, int option, School temp1[])
 {
     //根据option，选择按照不同的参数排序
     //0学校总分，1男子总分，2女子总分
@@ -168,8 +199,8 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])//按照
     for (j = st; j < en; j++)
         temp[j] = temp1[j];
 }
-
-void schoolInput(int schoolnum, int award_num, int i, int pos)//输入学校成绩并统计
+//输入学校成绩并统计
+void schoolInput(int schoolnum, int award_num, int i, int pos)
 {
     if (award_num == 3)
     {
@@ -186,8 +217,8 @@ void schoolInput(int schoolnum, int award_num, int i, int pos)//输入学校成绩并统
         else if (pos >= m && pos < m + w)schools[schoolnum].total_score[2] += five[i];
     }
 }
-
-void inputScores()//输入项目成绩菜单
+//输入项目成绩菜单
+void inputScores()
 {
 loop1:
     system("cls");
@@ -259,8 +290,8 @@ loop2:
         goto loop1;
     }
 }
-
-void showSchool()///输出学校菜单
+//输出学校菜单
+void showSchool()
 {
     const char* str[] = { "总分","男子总分","女子总分" };
     int flag = 0;
@@ -268,6 +299,8 @@ void showSchool()///输出学校菜单
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
         printf("\t\t*     +    1.按学校编号列出      +       *\n");
         printf("\t\t*========================================*\n");
@@ -281,6 +314,7 @@ void showSchool()///输出学校菜单
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    6.退出系统            +       *\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");//恢复默认颜色
         if (flag == 0)
             printf("请输入选项对应编号：");
         else printf("没有您输入的选项，请重新输入：");
@@ -301,10 +335,9 @@ void showSchool()///输出学校菜单
                 printf("\t|________|__________________|________|________|________|\n");
             }
             printf("-----按任意键返回上一级-----");
-            getchar();
+            getchar();//吸收回车，缓冲显示信息
             getchar();
             break;
-
         case 2:
         case 3:
         case 4:
@@ -350,6 +383,8 @@ void showSports()///输出查找项目菜单
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
         printf("\t\t*     +    1.查询学校项目成绩   +        *\n");
         printf("\t\t*========================================*\n");
@@ -359,6 +394,7 @@ void showSports()///输出查找项目菜单
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    4.退出系统           +        *\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");//恢复默认颜色
         if (flag == 0)
             printf("请输入选项对应编号：");
         else printf("您输入的选项不存在，请重新输入：");
@@ -431,6 +467,8 @@ void setting()///设置菜单
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
         printf("\t\t*     +    1.设置项目前三或前五  +       *\n");
         printf("\t\t*========================================*\n");
@@ -445,7 +483,8 @@ void setting()///设置菜单
         printf("\t\t*     +    6.退出系统            +       *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
-       
+        printf("\033[0m");//恢复默认颜色
+
         printf("请输入选项对应编号：");
         int option;
         scanf("%d", &option);
@@ -562,8 +601,8 @@ void setting()///设置菜单
         fclose(fp);
     }
 }
-
-void InputName()///输入学校和项目名称菜单
+//输入学校和项目名称菜单
+void InputName()
 {
     int flag = 0;
     while (1)
@@ -597,6 +636,7 @@ void InputName()///输入学校和项目名称菜单
                 scanf("%s", tmp);
                 if (strcmp(tmp, "stop") == 0)
                 {
+                    n = i;
                     printf("输入停止!\n");
                     break;
                 }
@@ -626,6 +666,10 @@ void InputName()///输入学校和项目名称菜单
                 char tmp[20] = { '\0' };
                 if (strcmp(tmp, "stop") == 0)
                 {
+                    if (i < m)
+                        m = i;//停止时，输入的男子项目数
+                    if (i > m)
+                        w = m + w - i - 1;//停止时，输入的女子项目数
                     printf("输入停止!\n");
                     break;
                 }
@@ -651,10 +695,12 @@ void InputName()///输入学校和项目名称菜单
         }
     }
 }
-void showAllSchools()//所有参赛学校
+//所有参赛学校
+void showAllSchools()
 {
     system("cls");
     printf("\n\n");
+    printf("\033[36m");
     printf("\t|========所有参赛学校=======|\n");
     printf("\t_____________________________\n");
     printf("\t|学校编号|     学校名称     |\n");
@@ -665,14 +711,17 @@ void showAllSchools()//所有参赛学校
             schools[i].number, schools[i].name);
         printf("\t|________|__________________|\n");
     }
+    printf("\033[0m");
     printf("-----按任意键返回上一级-----");
     getchar();
     getchar();
 }
-void showAllGames()//展示所有比赛项目
+//展示所有比赛项目
+void showAllGames()
 {
     system("cls");
     printf("\n\n");
+    printf("\033[36m");
     printf("\t|========所有比赛项目=======|\n");
     printf("\t_____________________________\n");
     printf("\t|项目编号|     项目名称     |\n");
@@ -683,12 +732,13 @@ void showAllGames()//展示所有比赛项目
             sports[i].number, sports[i].name);
         printf("\t|________|__________________|\n");
     }
-    printf("-----按任意键返回上一级-----");
+    printf("\033[40;37m");
+    printf("-----按任意键返回上一级--------------");
     getchar();
     getchar();
 }
-
-void menu()///主菜单的操作
+//主菜单的操作
+void menu()
 {
     int flag = 0;
     while (1)
@@ -696,24 +746,32 @@ void menu()///主菜单的操作
         system("cls");
         printf("\n\n");
         //打印菜单栏
+        printf("\033[46;37m");
         printf("\n\t\t+==============================================================+\n");
         printf("\t\t+                运动会分数统计系统  主菜单                    +\n");
         printf("\t\t+==============================================================+\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[42;30m");
         printf("\t\t+ 【信息录入】                                                 +\n");
         printf("\t\t+     1. 输入学校和项目名称       2.输入项目成绩               +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[42;30m");
         printf("\t\t+ 【查看信息】                                                 +\n");
         printf("\t\t+     3.查看参赛学校        4.查看比赛项目                     +\n");
         printf("\t\t+     5.查看学校成绩        6.查看项目成绩                     +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[42;30m");
         printf("\t\t+ 【设置】                                                     +\n");
         printf("\t\t+     7.设置                                                   +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[42;30m");
         printf("\t\t+  0. 退出系统                                                 +\n");
+        printf("\033[41;33m");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【提示】                                                     +\n");
         printf("\t\t+     初次使用时，请先录入相关信息                             +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//恢复默认颜色
         if (flag == 0)
             printf("请输入对应选项的编号：");
         else printf("没有您输入的选项，请重新输入：");
