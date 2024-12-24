@@ -46,7 +46,8 @@ void firstUsed()
         for (int i = 0; i < 50; i++) {
             sports[i].award_num = default_num; // 默认值3
             fprintf(fp, "%d\n", default_num);
-            fprintf(fp, "%d\n%d\n%d",20 ,10 ,10);
+            //参赛学校总数、男子项目数和女子项目数
+            fprintf(fp, "%d\n%d\n%d",10 ,5 ,5);
         }
         return;
     }
@@ -189,12 +190,15 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])
 {
     //根据option，选择按照不同的参数排序
     //0学校总分，1男子总分，2女子总分
-    if (en - st == 1)return;
+    if (en - st == 1)return;//待排序的范围只有一个元素，直接返回
     int mid = st + (en - st) / 2;
+    //左半部分
     merge_sort(temp, st, mid, option, temp1);
+    //右半部分
     merge_sort(temp, mid, en, option, temp1);
 
     int st1 = st, st2 = mid, tst = st;
+    //合并两个有序子数组
     while (st1 < mid && st2 < en)
     {
         if (temp[st1].total_score[option] > temp[st2].total_score[option])temp1[tst++] = temp[st1++];
@@ -202,8 +206,9 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])
     }
     while (st1 < mid)temp1[tst++] = temp[st1++];
     while (st2 < en)temp1[tst++] = temp[st2++];
-    int j;
-    for (j = st; j < en; j++)
+
+    //拷贝
+    for (int j = st; j < en; j++)
         temp[j] = temp1[j];
 }
 //输入学校成绩并统计
@@ -274,7 +279,13 @@ loop2:
     if (flag == 0)printf("请输入您选择的选项对应的编号：\n");
     else printf("没有您输入的选项编号，请重新输入：\n");
     int option;
-    scanf("%d", &option);
+    if (scanf("%d", &option) != 1) {
+        printf("非法输入，请输入数字！\n");
+        while (getchar() != '\n'); // 清空缓冲区
+        flag = 1; // 标记错误输入
+    }
+    else flag = 0;
+
     switch (option)
     {
     case 1:
@@ -306,6 +317,7 @@ loop2:
 void showSchool()
 {
     const char* str[] = { "总分","男子总分","女子总分" };
+    //标记输入是否符合要求 0错误/1正确
     int flag = 0;
     while (1)
     {
@@ -331,11 +343,19 @@ void showSchool()
             printf("请输入选项对应编号：");
         else printf("没有您输入的选项，请重新输入：");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字！\n");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else flag = 0;
+
         switch (option)
         {
         case 1:
             system("cls");
+            printf("\033[36m");//设置字体颜色
             printf("\t|\t\t学校按照编号列出                       |\n");  
             printf("\t|______________________________________________________|\n");
             printf("\t|学校编号|     学校名称     |学校总分|男子总分|女子总分|\n");
@@ -346,6 +366,7 @@ void showSchool()
                     schools[i].number, schools[i].name, schools[i].total_score[0], schools[i].total_score[1], schools[i].total_score[2]);
                 printf("\t|________|__________________|________|________|________|\n");
             }
+            printf("\033[0m");//恢复默认颜色
             printf("-----按任意键返回上一级-----");
             getchar();//吸收回车，缓冲显示信息
             getchar();
@@ -354,11 +375,14 @@ void showSchool()
         case 3:
         case 4:
             system("cls");
+            //复制原数组，不改变原来的顺序
             for (int i = 0; i < n; i++)
             {
                 temp[i] = schools[i];
             }
             merge_sort(temp, 0, n, option - 2, temp1);
+            printf("\033[36m");
+
             printf("\t|\t\t学校按照%s列出\t                 |\n", str[option - 2]);
             printf("\t|______________________________________________________|\n");
             printf("\t|学校编号|     学校名称     |学校总分|男子总分|女子总分|\n");
@@ -369,6 +393,8 @@ void showSchool()
                     temp[i].number, temp[i].name, temp[i].total_score[0], temp[i].total_score[1], temp[i].total_score[2]);
                 printf("\t|________|__________________|________|________|________|\n");
             }
+            printf("\033[0m");
+
             printf("-----按任意键返回上一级-----");
             getchar();
             getchar();
@@ -388,9 +414,10 @@ void showSchool()
     }
 }
 
-void showSports()///输出查找项目菜单
+//输出查找项目菜单
+void showSports()
 {
-    int flag = 0;
+    int flag = 0;//标记
     while (1)
     {
         system("cls");
@@ -411,20 +438,44 @@ void showSports()///输出查找项目菜单
             printf("请输入选项对应编号：");
         else printf("您输入的选项不存在，请重新输入：");
         int option;
-        scanf("%d", &option);
-        printf("*****************************************************\n");
-
+        if (scanf("%d", &option) != 1) 
+        {
+            printf("非法输入，请输入数字！\n");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else flag = 0;
+        if(option!=4)
+            printf("*****************************************************\n");
+        int f = 0;
         switch (option)
         {
         case 1:
             //system("cls");
             printf("请输入要查询的学校编号：");
             int num;
-            scanf("%d", &num);
+            f = scanf("%d", &num);
+            while (f!= 1||num>20||num<0)
+            {
+                f = scanf("%d", &num);
+                while (getchar() != '\n');//清空缓冲区
+                if (num > 0 && num <= 20)
+                    break;
+                printf("输入有误，请重新输入编号:");
+            }
             num--;
             printf("请输入要查询的该学校的项目编号：");
             int sp;
-            scanf("%d", &sp);
+            f = scanf("%d", &sp);
+            while (f != 1 || sp > m + w || sp < 0)
+            {
+                f = scanf("%d", &sp);
+                while (getchar() != '\n');//清空缓冲区
+                if (sp > 0 && sp <= m + w)
+                    break;
+                printf("输入有误，请重新输入编号:");
+            }
             sp--;
             printf("==================================================\n");
             printf("|%s的%s项目获奖得分情况：", schools[num].name, sports[sp].name);
@@ -439,6 +490,7 @@ void showSports()///输出查找项目菜单
             printf("请输入要查询的项目编号：");
             int num1;
             scanf("%d", &num1);
+            //数量不超过20 大于0
             if (num1 <= 0 || num1 > 20)
             {
                 printf("您输入的项目编号有误，请重新输入:");
@@ -446,13 +498,14 @@ void showSports()///输出查找项目菜单
             }
             num1--;
             printf("您查询的%s项目的获奖学校如下：\n", sports[num1].name);
-            printf("\t_____________________________\n");
-            printf("\t|学校编号|     学校名称     |\n");
-            printf("\t|________|__________________|\n");
+            printf("\t____________________________________\n");
+            printf("\t|学校编号|     学校名称     | 排名 |\n");
+            printf("\t|________|__________________|______|\n");
             for (int i = 0; i < sports[num1].award_num; i++)
             {
-                printf("\t|%8d|%18s|\n", schools[sports[num1].win_school[i]].number, schools[sports[num1].win_school[i]].name);
-                printf("\t|________|__________________|\n");
+                printf("\t|%8d|%18s|%4d  |\n", 
+                    schools[sports[num1].win_school[i]].number, schools[sports[num1].win_school[i]].name,i+1);
+                printf("\t|________|__________________|______|\n");
             }
             printf("-----按任意键返回上一级-----");
             getchar();
@@ -480,7 +533,7 @@ void setting()
         system("cls");
         printf("\n\n\n");
         printf("\033[0m");//恢复默认颜色
-        printf("\033[46;37m");
+        printf("\033[46;37m");//设置颜色
         printf("\t\t******************************************\n");
         printf("\t\t*     +    1.设置项目前三或前五  +       *\n");
         printf("\t\t*========================================*\n");
@@ -500,6 +553,7 @@ void setting()
         printf("请输入选项对应编号：");
         int option;
         scanf("%d", &option);
+
         printf("**********************************************\n");
         switch (option)
         {
@@ -621,7 +675,7 @@ void inputName()
     {
         system("cls");
         printf("\n\n\n");
-        printf("\033[46;37m");
+        printf("\033[46;37m");//设置背景颜色和字体颜色
         printf("\t\t******************************************\n");
         printf("\t\t*     +      1.输入学校名称        +     *\n");
         printf("\t\t*========================================*\n");
@@ -632,12 +686,18 @@ void inputName()
         printf("\t\t*     +      4.退出系统            +     *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
-        printf("\033[0m");
+        printf("\033[0m");//恢复默认颜色
         if (flag == 0)
             printf("请输入选项对应编号：");
         else printf("没有您输入的选项，请重新输入：");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字！\n");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else flag = 0;
         switch (option)
         {
         case 1:
@@ -784,14 +844,21 @@ void menu()
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【提示】                                                     +\n");
         printf("\t\t+     1.初次使用时，请先录入相关信息                           +\n");
-        printf("\t\t+     2.默认设置为20所参赛学校、10个男子项目和10个女子项目     +\n");
+        printf("\t\t+     2.默认设置为10所参赛学校、5个男子项目和5个女子项目       +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\033[0m");//恢复默认颜色
         if (flag == 0)
             printf("请输入对应选项的编号：");
         else printf("没有您输入的选项，请重新输入：");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字！\n");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else 
+            flag = 0;
         switch (option)
         {
         case 1:
