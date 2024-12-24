@@ -33,21 +33,27 @@ void showWelcome()
 void printProgressBar(int progress, int total) {
 	int barWidth = 50;  // 进度条的宽度
 	// 动态字符效果
-	const char* characters = "#*=";  // 动态效果的字符集合
+	//const char* characters = "#*=";  // 动态效果的字符集合
 	int charIndex = (progress / 5) % 3;  // 根据进度来变化字符
 
 	printf("\t\t\t[");
 	int pos = barWidth * progress / total;
+	printf("\033[42m");
 	for (int i = 0; i < barWidth; i++) {
 		if (i < pos) {
-			printf("%c", characters[charIndex]);  // 使用动态字符
-		}
-		else {
+			//printf("%c", characters[charIndex]);  // 使用动态字符
 			printf(" ");
 		}
+		else {
+			printf("\033[47m");
+			printf(" ");
+		}
+		
 	}
+	printf("\033[0m");
 	printf("] %d%%\r", progress * 100 / total);
-	fflush(stdout);  // 刷新输出缓冲区，确保立即显示
+	// 刷新输出缓冲区，确保立即显示
+	fflush(stdout);  
 }
 void firstDisplay()
 {

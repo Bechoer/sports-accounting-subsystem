@@ -134,11 +134,13 @@ void initialization()
     {
         firstUsed();
     }
+    //学校总数、男子项目数、女子项目数
+    fscanf(fp, "%d %d %d", &n, &m, &w);
+
     for (int i = 0; i < m+w; i++)
     {
         fscanf(fp, "%d", &sports[i].award_num);
     }
-    fscanf(fp, "%d%d%d", &n, &m, &w);
     fclose(fp);
 }
 //将输入到内存中的数据存到文件中
@@ -214,19 +216,25 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])
 //输入学校成绩并统计
 void inputSchoolScores(int schoolnum, int award_num, int i, int pos)
 {
-    if (award_num == 3)
+    if (award_num == 3)//获奖人数为3
     {
         schools[schoolnum].scores[pos] += three[i];
         schools[schoolnum].total_score[0] += three[i];
-        if (pos >= 0 && pos < m)schools[schoolnum].total_score[1] += three[i];
-        else if (pos >= m && pos < m + w)schools[schoolnum].total_score[2] += three[i];
+        //属于男子项目
+        if (pos >= 0 && pos < m)
+            schools[schoolnum].total_score[1] += three[i];
+        //属于女子项目
+        else if (pos >= m && pos < m + w)
+            schools[schoolnum].total_score[2] += three[i];
     }
-    else if (award_num == 5)
+    else if (award_num == 5)//获奖人数为5
     {
         schools[schoolnum].scores[pos] += five[i];
         schools[schoolnum].total_score[0] += five[i];
-        if (pos >= 0 && pos < m)schools[schoolnum].total_score[1] += five[i];
-        else if (pos >= m && pos < m + w)schools[schoolnum].total_score[2] += five[i];
+        if (pos >= 0 && pos < m)
+            schools[schoolnum].total_score[1] += five[i];
+        else if (pos >= m && pos < m + w)
+            schools[schoolnum].total_score[2] += five[i];
     }
 }
 //输入项目成绩菜单
@@ -234,7 +242,7 @@ void inputScores()
 {
 loop1:
     system("cls");
-    printf("请按顺序输入各个项目成绩（三位或后五位为前三名或前五名的成绩,名次靠前的先输入）：\n");
+    printf("请按顺序输入各个项目成绩（三位或五位为前三名或前五名的成绩,名次靠前的先输入）：\n");
     firstUsed();
     printf("===========================================\n");
     for (int pos = 0; pos < m + w; pos++)
@@ -655,6 +663,7 @@ void setting()
             printf("文件未成功打开！！！\n");
             system("pause");
         }
+        fprintf(fp, "%d\n%d\n%d\n", n, m, w);
         for (int i = 0; i < m + w; i++)
         {
             fprintf(fp, "%d ", sports[i].award_num);// 取3或者5名
@@ -663,7 +672,6 @@ void setting()
         //{
         //    fprintf(fp, "%d ", default_num);//
         //}
-        fprintf(fp, "\n%d\n%d\n%d\n", n, m, w);
         fclose(fp);
     }
 }
@@ -829,16 +837,13 @@ void menu()
         printf("\t\t+ 【信息录入】                                                 +\n");
         printf("\t\t+     1. 输入学校和项目名称       2.输入项目成绩               +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\033[42;30m");
         printf("\t\t+ 【查看信息】                                                 +\n");
         printf("\t\t+     3.查看参赛学校        4.查看比赛项目                     +\n");
         printf("\t\t+     5.查看学校成绩        6.查看项目成绩                     +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\033[42;30m");
         printf("\t\t+ 【设置】                                                     +\n");
         printf("\t\t+     7.设置                                                   +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\033[42;30m");
         printf("\t\t+  0. 退出系统                                                 +\n");
         printf("\033[41;33m");
         printf("\t\t+--------------------------------------------------------------+\n");
