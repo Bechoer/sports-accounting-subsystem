@@ -65,6 +65,8 @@ void readFromFile()
         firstUsed();
     }
     int cnt = 0;//记录有多少所学校
+    //fscanf(fp1, "%d", &n);
+    //printf("有%d所学校\n", n);
     while (1) {
         // 读取学校名称
         if (fscanf(fp1, "%s", schools[cnt].name) != 1) {
@@ -86,7 +88,6 @@ void readFromFile()
         }
         cnt++;
     }
-    n = cnt;
     //for (int i = 0; i < n; i++)
     //{
     //    //学校名称
@@ -106,6 +107,8 @@ void readFromFile()
     {
         firstUsed();
     }
+    //男子项目数量、女子项目数量
+    //fscanf(fp2, "%d %d", &m, &w);
     for (int i = 0; i < m + w; i++)
     {
         //比赛项目编号 项目名称
@@ -124,7 +127,7 @@ void initialization()
 {
     //读取
     readFromFile();
-
+    //载入设置
     FILE* fp = fopen("setting.txt", "r");
     if (fp == NULL)
     {
@@ -145,6 +148,8 @@ void saveToFile()
     {
         printf("文件未成功打开！！！\n");
     }
+
+    //fprintf(fp1, "%d\n", n);//学校总数
     for (int i = 0; i < n; i++)
     {
         fprintf(fp1, "%s\n", schools[i].name);
@@ -165,6 +170,8 @@ void saveToFile()
     {
         printf("文件未成功打开！！！\n");
     }
+    //保存男子项目数量、女子项目数量
+    //fprintf(fp2, "%d %d\n", m, w);
     for (int i = 0; i < m + w; i++)
     {
         fprintf(fp2, "%d %s\n",sports[i].number ,sports[i].name);
@@ -200,7 +207,7 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])
         temp[j] = temp1[j];
 }
 //输入学校成绩并统计
-void schoolInput(int schoolnum, int award_num, int i, int pos)
+void inputSchoolScores(int schoolnum, int award_num, int i, int pos)
 {
     if (award_num == 3)
     {
@@ -224,6 +231,7 @@ loop1:
     system("cls");
     printf("请按顺序输入各个项目成绩（三位或后五位为前三名或前五名的成绩,名次靠前的先输入）：\n");
     firstUsed();
+    printf("===========================================\n");
     for (int pos = 0; pos < m + w; pos++)
     {
         printf("项目名称:%s,取前%d名:\n",sports[pos].name,sports[pos].award_num);
@@ -240,14 +248,17 @@ loop1:
                 printf("没有您输入的编号对应的学校，请重新输入：\n");
                 continue;
             }
-            schoolInput(sports[pos].win_school[i], award_num, i, pos);
+            //输入学校成绩并统计
+            inputSchoolScores(sports[pos].win_school[i], award_num, i, pos);
         }
+        printf("===========================================\n");
     }
 
     int flag = 0;
 loop2:
     system("cls");
     printf("\n\n\n");
+    printf("\033[46;37m");
     printf("\t\t**************************************************\n");
     printf("\t\t*     您的输入已完成，请输入以下操作对应编号     *\n");
     printf("\t\t*================================================*\n");
@@ -259,6 +270,7 @@ loop2:
     printf("\t\t*================================================*\n");
     printf("\t\t*       +      4.退出系统       +                *\n");
     printf("\t\t**************************************************\n");
+    printf("\033[0m");
     if (flag == 0)printf("请输入您选择的选项对应的编号：\n");
     else printf("没有您输入的选项编号，请重新输入：\n");
     int option;
@@ -460,8 +472,8 @@ void showSports()///输出查找项目菜单
         }
     }
 }
-
-void setting()///设置菜单
+//设置菜单(设置前三或前五、学校数量、项目数量)
+void setting()
 {
     while (1)
     {
@@ -602,13 +614,14 @@ void setting()///设置菜单
     }
 }
 //输入学校和项目名称菜单
-void InputName()
+void inputName()
 {
     int flag = 0;
     while (1)
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
         printf("\t\t*     +      1.输入学校名称        +     *\n");
         printf("\t\t*========================================*\n");
@@ -619,16 +632,17 @@ void InputName()
         printf("\t\t*     +      4.退出系统            +     *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");
         if (flag == 0)
-            printf("请输入选项对应编号：\n");
-        else printf("没有您输入的选项，请重新输入：\n");
+            printf("请输入选项对应编号：");
+        else printf("没有您输入的选项，请重新输入：");
         int option;
         scanf("%d", &option);
         switch (option)
         {
         case 1:
             system("cls");
-            printf("请按照编号顺序输入学校名称（输入 stop ，则停止输入）：\n");
+            printf("请按照编号顺序输入 %d 所学校名称：(输入完成后自动保存)\n",n);
             for (int i = 0; i < n; i++)
             {
                 printf("编号 %d：", i + 1);
@@ -645,16 +659,16 @@ void InputName()
                 //printf("...%s", schools[i].name);
             }
             printf("-----按任意键返回上一级-----\n");
-            saveToFile();
+            saveToFile();//保存到文件
             getchar();
             getchar();
             break;
         case 2:
             system("cls");
-            printf("请按照编号顺序输入项目名称（输入 stop ，则停止输入）：\n");
+            printf("请按照编号顺序输入 %d 个项目名称和 %d 个女子项目名称：(输入完成后自动保存)\n",m,w);
             for (int i = 0; i < m + w; i++)
             {
-                
+                char tmp[20] = { '\0' };
                 if (i < m)
                 {
                     printf("男子项目 编号 %d：", i + 1);
@@ -663,7 +677,7 @@ void InputName()
                 {
                     printf("女子项目 编号 %d：", i + 1);
                 }
-                char tmp[20] = { '\0' };
+                scanf("%s", tmp);
                 if (strcmp(tmp, "stop") == 0)
                 {
                     if (i < m)
@@ -769,7 +783,8 @@ void menu()
         printf("\033[41;33m");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【提示】                                                     +\n");
-        printf("\t\t+     初次使用时，请先录入相关信息                             +\n");
+        printf("\t\t+     1.初次使用时，请先录入相关信息                           +\n");
+        printf("\t\t+     2.默认设置为20所参赛学校、10个男子项目和10个女子项目     +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\033[0m");//恢复默认颜色
         if (flag == 0)
@@ -779,28 +794,36 @@ void menu()
         scanf("%d", &option);
         switch (option)
         {
-        case 1://输入学校和项目名称
-            InputName();
+        case 1:
+            //输入学校和项目名称
+            inputName();
             break;
-        case 2://输入项目成绩
+        case 2:
+            //输入项目成绩
             inputScores();
             break;
-        case 3://查看参赛学校
+        case 3:
+            //查看参赛学校
             showAllSchools();
             break;
-        case 4://查看比赛项目
+        case 4:
+            //查看比赛项目
             showAllGames();
             break;
-        case 5://查看学校成绩
+        case 5:
+            //查看学校成绩
             showSchool();
             break;
-        case 6://查看项目成绩
+        case 6:
+            //查看项目成绩
             showSports();
             break;
-        case 7://设置
+        case 7:
+            //设置
             setting();
             break;
-        case 0://退出系统
+        case 0:
+            //退出系统
             saveToFile();
             Sleep(1000);
             exit(0);

@@ -28,6 +28,7 @@ void showWelcome()
 
 	system("cls");
 }
+//模拟进度条
 void printProgressBar(int progress, int total) {
 	int barWidth = 50;  // 进度条的宽度
 	// 动态字符效果
@@ -79,7 +80,7 @@ void firstDisplay()
 	cursorInfo.bVisible = TRUE;  // 恢复光标可见
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 	printf("\n");
-	Sleep(1000);
+	Sleep(100);
 	system("cls");
 }
 int main()
