@@ -51,6 +51,7 @@ void firstUsed()
         }
         return;
     }
+    fscanf(fp, "%d %d %d", &n,&m,&w);
     for (int i = 0; i < m+w; i++)
     {
         fscanf(fp, "%d", &sports[i].award_num);
@@ -139,7 +140,7 @@ void initialization()
 
     for (int i = 0; i < m+w; i++)
     {
-        fscanf(fp, "%d", &sports[i].award_num);
+        fscanf(fp, "%d ", &sports[i].award_num);
     }
     fclose(fp);
 }
@@ -342,7 +343,7 @@ void showSchool()
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    4.按女子项目总分列出  +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    5.返回主菜单          +       *\n");
+        printf("\t\t*     +    5.返回信息查看菜单    +       *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    6.退出系统            +       *\n");
         printf("\t\t******************************************\n");
@@ -352,7 +353,7 @@ void showSchool()
         else printf("没有您输入的选项，请重新输入：");
         int option;
         if (scanf("%d", &option) != 1) {
-            printf("非法输入，请输入数字！\n");
+            printf("非法输入，请输入数字：\n");
             while (getchar() != '\n'); // 清空缓冲区
             flag = 1; // 标记错误输入
             continue; // 重新开始循环
@@ -391,7 +392,7 @@ void showSchool()
             merge_sort(temp, 0, n, option - 2, temp1);
             printf("\033[36m");
 
-            printf("\t|\t\t学校按照%s列出\t                 |\n", str[option - 2]);
+            printf("\t|\t\t学校按照%s列出\t               |\n", str[option - 2]);
             printf("\t|______________________________________________________|\n");
             printf("\t|学校编号|     学校名称     |学校总分|男子总分|女子总分|\n");
             printf("\t|________|__________________|________|________|________|\n");
@@ -437,7 +438,7 @@ void showSports()
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    2.查询项目获奖学校   +        *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    3.返回主菜单         +        *\n");
+        printf("\t\t*     +    3.返回信息查看菜单   +        *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t*     +    4.退出系统           +        *\n");
         printf("\t\t******************************************\n");
@@ -560,9 +561,14 @@ void setting()
 
         printf("请输入选项对应编号：");
         int option;
-        scanf("%d", &option);
-
-        printf("**********************************************\n");
+        //scanf("%d", &option);
+        while (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字：");
+            while (getchar() != '\n'); // 清空缓冲区
+            continue; // 重新开始循环
+        }
+        if(option<5)
+            printf("**********************************************\n");
         switch (option)
         {
         case 1:
@@ -571,7 +577,12 @@ void setting()
                 //system("cls");
                 printf("请输入要设置的项目编号：");
                 int n1;
-                scanf("%d", &n1);
+                //scanf("%d", &n1);
+                while(scanf("%d", &n1) != 1) {
+                    printf("非法输入，请重新输入数字：");
+                    while (getchar() != '\n'); // 清空缓冲区
+                    continue; // 重新开始循环
+                }
                 n1--;
                 printf("请输入3或5设置该项目要取的获奖名次：");
                 while (1)
@@ -597,7 +608,11 @@ void setting()
             printf("请输入学校数目：");
             while (1)
             {
-                scanf("%d", &n);
+                if (scanf("%d", &n) != 1) {
+                    printf("非法输入，请输入数字：");
+                    while (getchar() != '\n'); // 清空缓冲区
+                    continue; // 重新开始循环
+                }
                 //参赛学校数量不能大于20，不能小于1
                 if (n <= 20 && n >= 1)break;
                 else
@@ -615,7 +630,11 @@ void setting()
             printf("请输入男子项目数目：");
             while (1)
             {
-                scanf("%d", &m);
+                if (scanf("%d", &m) != 1) {
+                    printf("非法输入，请输入数字：");
+                    while (getchar() != '\n'); // 清空缓冲区
+                    continue; // 重新开始循环
+                }
                 //男子项目个数不能大于20，不能小于1
                 if (m <= 20 && m >= 0)break;
                 else
@@ -819,6 +838,147 @@ void showAllGames()
     getchar();
     getchar();
 }
+//信息录入菜单
+void inputInfo()
+{
+    int flag = 0;
+    while (1)
+    {
+        system("cls");
+        printf("\n\n\n");
+        printf("\033[46;37m");
+        printf("\n\t\t+==============================================================+\n");
+        printf("\t\t+                       信息录入菜单                           +\n");
+        printf("\t\t+==============================================================+\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[42;30m");
+        printf("\t\t+                    1.【输入学校和项目名称】                  +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    2.【输入项目成绩】                        +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    3.【返回主菜单】                          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    4.【退出系统】                            +\n");
+        printf("\033[41;33m");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 【提示】                                                     +\n");
+        printf("\t\t+     1.初次使用时，请先录入相关信息                           +\n");
+        printf("\t\t+     2.默认设置为10所参赛学校、5个男子项目和5个女子项目       +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//恢复默认颜色
+        if (flag == 0)
+            printf("请输入对应选项的编号：");
+        else printf("没有您输入的选项，请重新输入：");
+        int option;
+        if (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字：");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else
+            flag = 0;
+        switch (option)
+        {
+        case 1:
+            //输入学校和项目名称
+            inputName();
+            break;
+        case 2:
+            //输入项目成绩
+            inputScores();
+            break;
+        case 3:
+            //返回主菜单
+            menu();
+            break;
+        case 4:
+            //退出系统
+            saveToFile();
+            Sleep(1000);
+            exit(0);
+            break;
+        default:
+            flag = 1;
+        }
+    }
+}
+//查看信息
+void checkInfo()
+{
+    int flag = 0;
+    while (1)
+    {
+        system("cls");
+        printf("\n\n\n");
+        printf("\033[46;37m");
+        printf("\n\t\t+==============================================================+\n");
+        printf("\t\t+                       信息查看菜单                           +\n");
+        printf("\t\t+==============================================================+\n");
+        printf("\033[0m");//恢复默认颜色
+        printf("\033[42;30m");
+        printf("\t\t+          +++         1.【查看参赛学校】         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         2.【查看比赛项目】         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         3.【查看学校成绩】         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         4.【查看项目成绩】         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         5.【返回主菜单】           +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         6.【退出系统】             +++          +\n");
+        printf("\033[41;33m");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ 【提示】                                                     +\n");
+        printf("\t\t+     1.初次使用时，请先录入相关信息                           +\n");
+        printf("\t\t+     2.默认设置为10所参赛学校、5个男子项目和5个女子项目       +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//恢复默认颜色
+        if (flag == 0)
+            printf("请输入对应选项的编号：");
+        else printf("没有您输入的选项，请重新输入：");
+        int option;
+        if (scanf("%d", &option) != 1) {
+            printf("非法输入，请输入数字：");
+            while (getchar() != '\n'); // 清空缓冲区
+            flag = 1; // 标记错误输入
+            continue; // 重新开始循环
+        }
+        else
+            flag = 0;
+        switch (option)
+        { 
+        case 1:
+            //查看参赛学校
+            showAllSchools();
+            break;
+        case 2:
+            //查看比赛项目
+            showAllGames();
+            break;
+        case 3:
+            //查看学校成绩
+            showSchool();
+            break;
+        case 4:
+            //查看项目成绩
+            showSports();
+            break;
+        case 5:
+            menu();
+            break;
+        case 6:
+            //退出系统
+            saveToFile();
+            Sleep(1000);
+            exit(0);
+            break;
+        default:
+            flag = 1;
+        }
+    }
+}
 //主菜单的操作
 void menu()
 {
@@ -834,17 +994,13 @@ void menu()
         printf("\t\t+==============================================================+\n");
         printf("\033[0m");//恢复默认颜色
         printf("\033[42;30m");
-        printf("\t\t+ 【信息录入】                                                 +\n");
-        printf("\t\t+     1. 输入学校和项目名称       2.输入项目成绩               +\n");
+        printf("\t\t+          +++        1.【信息录入】        +++                +\n");
+        printf("\t\t+------------------------------------------------------------——+\n");
+        printf("\t\t+          +++        2.【查看信息】        +++                +\n");
+        printf("\t\t+----------------------------------------------------------——--+\n");
+        printf("\t\t+          +++        3.【设置】            +++                +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ 【查看信息】                                                 +\n");
-        printf("\t\t+     3.查看参赛学校        4.查看比赛项目                     +\n");
-        printf("\t\t+     5.查看学校成绩        6.查看项目成绩                     +\n");
-        printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ 【设置】                                                     +\n");
-        printf("\t\t+     7.设置                                                   +\n");
-        printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+  0. 退出系统                                                 +\n");
+        printf("\t\t+          +++        4.【退出系统】        +++                +\n");
         printf("\033[41;33m");
         printf("\t\t+--------------------------------------------------------------+\n");
         printf("\t\t+ 【提示】                                                     +\n");
@@ -857,7 +1013,7 @@ void menu()
         else printf("没有您输入的选项，请重新输入：");
         int option;
         if (scanf("%d", &option) != 1) {
-            printf("非法输入，请输入数字！\n");
+            printf("非法输入，请输入数字：");
             while (getchar() != '\n'); // 清空缓冲区
             flag = 1; // 标记错误输入
             continue; // 重新开始循环
@@ -867,34 +1023,18 @@ void menu()
         switch (option)
         {
         case 1:
-            //输入学校和项目名称
-            inputName();
+            //信息录入
+            inputInfo();
             break;
         case 2:
-            //输入项目成绩
-            inputScores();
+            //查看信息
+            checkInfo();
             break;
         case 3:
-            //查看参赛学校
-            showAllSchools();
-            break;
-        case 4:
-            //查看比赛项目
-            showAllGames();
-            break;
-        case 5:
-            //查看学校成绩
-            showSchool();
-            break;
-        case 6:
-            //查看项目成绩
-            showSports();
-            break;
-        case 7:
             //设置
             setting();
             break;
-        case 0:
+        case 4:
             //退出系统
             saveToFile();
             Sleep(1000);
