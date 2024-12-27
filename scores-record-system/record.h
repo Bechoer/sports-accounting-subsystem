@@ -4,43 +4,50 @@
 #include<stdlib.h>
 #include<conio.h>
 #include<string.h>
-#define default_num 3  ///Ä¬ÈÏ»ñ½±Ãû´ÎÊıÄ¿£¬È¡3»ò5
+#include<iostream>
+#include <windows.h> 
+#define default_num 3  ///é»˜è®¤è·å¥–åæ¬¡æ•°ç›®ï¼Œå–3æˆ–5
 typedef struct Sport
 {
-    char name[100];       //ÏîÄ¿Ãû³Æ
-    int number;         //ÏîÄ¿±àºÅ
-    int win_school[5];   //»ñ½±Ç°Èı»òÇ°ÎåÑ§Ğ£µÄ±àºÅ
-    int award_num;       //Õâ¸öÔË¶¯ÏîÄ¿È¡Ãû´ÎµÄÊıÄ¿£¬È¡3»ò5
-} Sport;                 //´æ·ÅÏîÄ¿ĞÅÏ¢
+    char name[30];       //é¡¹ç›®åç§°
+
+    int number;         //é¡¹ç›®ç¼–å·
+    int win_school[5];   //è·å¥–å‰ä¸‰æˆ–å‰äº”å­¦æ ¡çš„ç¼–å·
+    int award_num;       //è¿™ä¸ªè¿åŠ¨é¡¹ç›®å–åæ¬¡çš„æ•°ç›®ï¼Œå–3æˆ–5
+} Sport;                 //å­˜æ”¾é¡¹ç›®ä¿¡æ¯
 typedef struct School
 {
-    int total_score[3];//ÏÂ±ê0±íÊ¾Ñ§Ğ£×Ü·Ö£¬1±íÊ¾ÄĞ×Ó×Ü·Ö£¬2±íÊ¾Å®×Ó×Ü·Ö£¬·½±ãÖ®ºóµÄÅÅĞòÊä³ö¶ø´æÔÚÊı×éÖĞ
-    char name[20];   //Ñ§Ğ£Ãû³Æ
-    int scores[50];  //¸÷¸öÏîÄ¿µÃ·Ö
-    int number; //Ñ§Ğ£±àºÅ
+    int total_score[3];//ä¸‹æ ‡0è¡¨ç¤ºå­¦æ ¡æ€»åˆ†ï¼Œ1è¡¨ç¤ºç”·å­æ€»åˆ†ï¼Œ2è¡¨ç¤ºå¥³å­æ€»åˆ†ï¼Œæ–¹ä¾¿ä¹‹åçš„æ’åºè¾“å‡ºè€Œå­˜åœ¨æ•°ç»„ä¸­
+    char name[20];   //å­¦æ ¡åç§°
+    int scores[50];  //å„ä¸ªé¡¹ç›®å¾—åˆ†
+    int number; //å­¦æ ¡ç¼–å·
 } School;
 
-//³ÌĞòÊı¾İÇåÁã
+//ç¨‹åºæ•°æ®æ¸…é›¶
 void firstUsed();
-//³õÊ¼»¯²Ù×÷£¬ÔÚ´ËÎÄ¼ş²Ù×÷£¬½øĞĞ´ò¿ª³ÌĞòµÄ¶ÁÈ¡³õÊ¼»¯²Ù×÷
+//åˆå§‹åŒ–æ“ä½œï¼Œåœ¨æ­¤æ–‡ä»¶æ“ä½œï¼Œè¿›è¡Œæ‰“å¼€ç¨‹åºçš„è¯»å–åˆå§‹åŒ–æ“ä½œ
 void initialization();
-//±£´æÎÄ¼ş
+//ä¿å­˜æ–‡ä»¶
 void saveToFile();
-//¶ÁÎÄ¼ş
+//è¯»æ–‡ä»¶
 void readFromFile();
-///°´ÕÕ²»Í¬µÄ²ÎÊı¶ÔÑ§Ğ£Êı×é½øĞĞÅÅĞò
+///æŒ‰ç…§ä¸åŒçš„å‚æ•°å¯¹å­¦æ ¡æ•°ç»„è¿›è¡Œæ’åº
 void merge_sort(School temp[], int st, int en, int option, School temp1[]);
-//ÊäÈëÑ§Ğ£³É¼¨²¢Í³¼Æ
-void schoolInput(int schoolnum, int award_num, int i, int pos);
-///ÊäÈëÏîÄ¿³É¼¨²Ëµ¥
+//è¾“å…¥å­¦æ ¡æˆç»©å¹¶ç»Ÿè®¡
+void inputSchoolScores(int schoolnum, int award_num, int i, int pos);
+///è¾“å…¥é¡¹ç›®æˆç»©èœå•
 void inputScores();
-//Êä³öÑ§Ğ£²Ëµ¥
+//è¾“å‡ºå­¦æ ¡èœå•
 void showSchool();
-//Êä³ö²éÕÒÏîÄ¿²Ëµ¥
+//è¾“å‡ºæŸ¥æ‰¾é¡¹ç›®èœå•
 void showSports();
-//ÉèÖÃ²Ëµ¥
+//è®¾ç½®èœå•
 void setting();
-//ÊäÈëÑ§Ğ£ºÍÏîÄ¿Ãû³Æ²Ëµ¥
-void InputName();
-//Ö÷²Ëµ¥µÄ²Ù×÷
+//è¾“å…¥å­¦æ ¡å’Œé¡¹ç›®åç§°èœå•
+void inputName();
+//æ‰€æœ‰å‚èµ›å­¦æ ¡
+void showAllSchools();
+//å±•ç¤ºæ‰€æœ‰æ¯”èµ›é¡¹ç›®
+void showAllGames();
+//ä¸»èœå•çš„æ“ä½œ
 void menu();

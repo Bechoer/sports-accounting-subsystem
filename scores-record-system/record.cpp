@@ -1,25 +1,26 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"record.h"
 
-#define default_num 3  ///Ä¬ÈÏ»ñ½±Ãû´ÎÊıÄ¿£¬È¡3»ò5
+#define default_num 3  ///é»˜è®¤è·å¥–åæ¬¡æ•°ç›®ï¼Œå–3æˆ–5
 
-//³õÊ¼»¯Ä¬ÈÏÖµ
-int n = 20;  //×î´óÑ§Ğ£ÊıÄ¿
-int m = 10;  //×î´óÄĞ×ÓÏîÄ¿ÊıÄ¿
-int w = 10;  //×î´óÅ®×ÓÏîÄ¿ÊıÄ¿
-School schools[25];  //Ñ§Ğ£½á¹¹ÌåÊı×é
-School temp[25];  //ÓÃÀ´»º´æÅÅĞòÁĞ±íÑ§Ğ£Êı¾İ
-School temp1[25];  //ÅÅĞò»º´æÊı×é
-Sport sports[50];  //±ÈÈüÏîÄ¿½á¹¹ÌåÊı×é
-int three[3] = { 5,3,2 };   //»ñµÃÇ°ÈıÃûµÄÑ§Ğ£»ı·Ö
-int five[5] = { 7,5,3,2,1 };  //»ñµÃÇ°ÎåÃûµÄÑ§Ğ£»ı·Ö
+//åˆå§‹åŒ–é»˜è®¤å€¼
+int n = 20;  //æœ€å¤§å­¦æ ¡æ•°ç›®
+int m = 10;  //æœ€å¤§ç”·å­é¡¹ç›®æ•°ç›®
+int w = 10;  //æœ€å¤§å¥³å­é¡¹ç›®æ•°ç›®
+School schools[25];  //å­¦æ ¡ç»“æ„ä½“æ•°ç»„
+School temp[25];  //ç”¨æ¥ç¼“å­˜æ’åºåˆ—è¡¨å­¦æ ¡æ•°æ®
+School temp1[25];  //æ’åºç¼“å­˜æ•°ç»„
+Sport sports[50];  //æ¯”èµ›é¡¹ç›®ç»“æ„ä½“æ•°ç»„
+int three[3] = { 5,3,2 };   //è·å¾—å‰ä¸‰åçš„å­¦æ ¡ç§¯åˆ†
+int five[5] = { 7,5,3,2,1 };  //è·å¾—å‰äº”åçš„å­¦æ ¡ç§¯åˆ†
 
-void readFromFile();//´ÓÊı¾İÎÄ¼ş¶ÁÈ¡´æÓĞµÄÔË¶¯»á³É¼¨ĞÅÏ¢
+void readFromFile();//ä»æ•°æ®æ–‡ä»¶è¯»å–å­˜æœ‰çš„è¿åŠ¨ä¼šæˆç»©ä¿¡æ¯
 
-void firstUsed()//³ÌĞòÊı¾İÇåÁã
+//ç¬¬ä¸€æ¬¡ä½¿ç”¨ï¼Œç¨‹åºæ¸…é›¶æ•°æ®
+void firstUsed()
 {
-    //±éÀúËùÓĞÑ§Ğ£ºÍÏîÄ¿£¬Çå¿Õ·ÖÊıÊı×é¡£
-    //½«Ñ§Ğ£×Ü·Ö£¨0£©¡¢ÄĞ×Ó×Ü·Ö£¨1£©¡¢Å®×Ó×Ü·Ö£¨2£©¼°¶ÔÓ¦µÄ¸÷¸öÏîÄ¿µÃ·ÖÉèÖÃÎª0
+    //éå†æ‰€æœ‰å­¦æ ¡å’Œé¡¹ç›®ï¼Œæ¸…ç©ºåˆ†æ•°æ•°ç»„ã€‚
+    //å°†å­¦æ ¡æ€»åˆ†ï¼ˆ0ï¼‰ã€ç”·å­æ€»åˆ†ï¼ˆ1ï¼‰ã€å¥³å­æ€»åˆ†ï¼ˆ2ï¼‰åŠå¯¹åº”çš„å„ä¸ªé¡¹ç›®å¾—åˆ†è®¾ç½®ä¸º0
     for (int i = 0; i < n; i++)
     {
         schools[i].total_score[0] = 0;
@@ -29,32 +30,35 @@ void firstUsed()//³ÌĞòÊı¾İÇåÁã
             schools[i].scores[j] = 0;
         }
     }
-    //½«ÄĞ×Ó¡¢Å®×ÓÏîÄ¿µÄÇ°Èı»òÇ°ÎåÉèÖÃÎª0
+    //å°†ç”·å­ã€å¥³å­é¡¹ç›®çš„å‰ä¸‰æˆ–å‰äº”è®¾ç½®ä¸º0
     for (int i = 0; i < m + w; i++)
     {
         for (int j = 0; j < 5; j++)
             sports[i].win_school[j] = 0;
     }
-    //printf("³ÌĞòÊı¾İÇåÁã");
-    //´ÓÎÄ¼şÖĞ¶ÁÈ¡¸÷¸öÔË¶¯ÏîÄ¿È¡µÄÃû´Î£¬3»ò5
+    //printf("ç¨‹åºæ•°æ®æ¸…é›¶");
+    //ä»æ–‡ä»¶ä¸­è¯»å–å„ä¸ªè¿åŠ¨é¡¹ç›®å–çš„åæ¬¡ï¼Œ3æˆ–5
     FILE* fp = fopen("setting.txt", "r");
     if (fp == NULL) {
-        // ÎÄ¼ş²»´æÔÚµÄ´¦ÀíÂß¼­
-        printf("µ±Ç°ÉèÖÃ²»´æÔÚ£¬ÔØÈëÄ¬ÈÏÉèÖÃ.\n");
+        // æ–‡ä»¶ä¸å­˜åœ¨çš„å¤„ç†é€»è¾‘
+        printf("å½“å‰è®¾ç½®ä¸å­˜åœ¨ï¼Œè½½å…¥é»˜è®¤è®¾ç½®.\n");
         fp = fopen("setting.txt", "w");
         for (int i = 0; i < 50; i++) {
-            sports[i].award_num = default_num; // Ä¬ÈÏÖµ3
+            sports[i].award_num = default_num; // é»˜è®¤å€¼3
             fprintf(fp, "%d\n", default_num);
-            fprintf(fp, "%d\n%d\n%d",20 ,10 ,10);
+            //å‚èµ›å­¦æ ¡æ€»æ•°ã€ç”·å­é¡¹ç›®æ•°å’Œå¥³å­é¡¹ç›®æ•°
+            fprintf(fp, "%d\n%d\n%d",10 ,5 ,5);
         }
         return;
     }
-    for (int i = 0; i < 50; i++)
+    fscanf(fp, "%d %d %d", &n,&m,&w);
+    for (int i = 0; i < m+w; i++)
     {
         fscanf(fp, "%d", &sports[i].award_num);
     }
     fclose(fp);
 }
+//ä»æ–‡ä»¶ä¸­è¯»å–æ•°æ®
 void readFromFile()
 {
     FILE* fp1 = fopen("schools.txt", "r");
@@ -62,16 +66,42 @@ void readFromFile()
     {
         firstUsed();
     }
-    for (int i = 0; i < n; i++)
-    {
-        fscanf(fp1, "%s", schools[i].name);
-        fscanf(fp1, "%d %d %d %d",
-            &schools[i].number,&schools[i].total_score[0], &schools[i].total_score[1], &schools[i].total_score[2]);
-        for (int j = 0; j < m + w; j++)
-        {
-            fscanf(fp1, "%d", &schools[i].scores[j]);
+    int cnt = 0;//è®°å½•æœ‰å¤šå°‘æ‰€å­¦æ ¡
+    //fscanf(fp1, "%d", &n);
+    //printf("æœ‰%dæ‰€å­¦æ ¡\n", n);
+    while (1) {
+        // è¯»å–å­¦æ ¡åç§°
+        if (fscanf(fp1, "%s", schools[cnt].name) != 1) {
+            break;
         }
+        // è¯»å–å­¦æ ¡ç¼–å·ã€å›¢ä½“å¾—åˆ†ã€ç”·å­é¡¹ç›®å¾—åˆ†ã€å¥³å­é¡¹ç›®å¾—åˆ†
+        if (fscanf(fp1, "%d %d %d %d",
+            &schools[cnt].number,
+            &schools[cnt].total_score[0],
+            &schools[cnt].total_score[1],
+            &schools[cnt].total_score[2]) != 4) {
+            break;
+        }
+        for (int j = 0; j < m + w; j++) {
+            //å„ä¸ªé¡¹ç›®å¾—åˆ†
+            if (fscanf(fp1, "%d", &schools[cnt].scores[j]) != 1) {
+                break;
+            }
+        }
+        cnt++;
     }
+    //for (int i = 0; i < n; i++)
+    //{
+    //    //å­¦æ ¡åç§°
+    //    fscanf(fp1, "%s", schools[i].name);
+    //    //å­¦æ ¡ç¼–å· å›¢ä½“å¾—åˆ† ç”·å­é¡¹ç›®å¾—åˆ† å¥³å­é¡¹ç›®å¾—åˆ†
+    //    fscanf(fp1, "%d %d %d %d",
+    //        &schools[i].number,&schools[i].total_score[0], &schools[i].total_score[1], &schools[i].total_score[2]);
+    //    for (int j = 0; j < m + w; j++)
+    //    {
+    //        fscanf(fp1, "%d", &schools[i].scores[j]);//å„ä¸ªé¡¹ç›®å¾—åˆ†
+    //    }
+    //}
     fclose(fp1);
 
     FILE* fp2 = fopen("sports.txt", "r");
@@ -79,51 +109,62 @@ void readFromFile()
     {
         firstUsed();
     }
+    //ç”·å­é¡¹ç›®æ•°é‡ã€å¥³å­é¡¹ç›®æ•°é‡
+    //fscanf(fp2, "%d %d", &m, &w);
     for (int i = 0; i < m + w; i++)
     {
-        fscanf(fp2, "%d %s",&sports[i].number,&sports[i].name);
+        //æ¯”èµ›é¡¹ç›®ç¼–å· é¡¹ç›®åç§°
+        fscanf(fp2, "%d %s",&sports[i].number,sports[i].name);
+        //æ¯”èµ›é¡¹ç›®å–åæ¬¡çš„æ•° 3/5
+
         fscanf(fp2, "%d", &sports[i].award_num);
         for (int j = 0; j < sports[i].award_num; j++)
         {
-            fscanf(fp2, "%d", &sports[i].win_school[j]);
+            fscanf(fp2, "%d", &sports[i].win_school[j]);//è·å¾—å‰ä¸‰æˆ–å‰äº”çš„å­¦æ ¡
         }
     }
     fclose(fp2);
 }
-void initialization()//³õÊ¼»¯²Ù×÷£¬ÔÚ´ËÎÄ¼ş²Ù×÷£¬½øĞĞ´ò¿ª³ÌĞòµÄ¶ÁÈ¡³õÊ¼»¯²Ù×÷
+//åˆå§‹åŒ–æ“ä½œï¼Œåœ¨æ­¤æ–‡ä»¶æ“ä½œï¼Œè¿›è¡Œæ‰“å¼€ç¨‹åºçš„è¯»å–åˆå§‹åŒ–æ“ä½œ
+void initialization()
 {
+    //è¯»å–
     readFromFile();
-
+    //è½½å…¥è®¾ç½®
     FILE* fp = fopen("setting.txt", "r");
     if (fp == NULL)
     {
         firstUsed();
     }
-    for (int i = 0; i < 50; i++)
+    //å­¦æ ¡æ€»æ•°ã€ç”·å­é¡¹ç›®æ•°ã€å¥³å­é¡¹ç›®æ•°
+    fscanf(fp, "%d %d %d", &n, &m, &w);
+
+    for (int i = 0; i < m+w; i++)
     {
-        fscanf(fp, "%d", &sports[i].award_num);
+        fscanf(fp, "%d ", &sports[i].award_num);
     }
-    fscanf(fp, "%d%d%d", &n, &m, &w);
     fclose(fp);
 }
-
-void saveToFile()//½«ÊäÈëµ½ÄÚ´æÖĞµÄÊı¾İ´æµ½ÎÄ¼şÖĞ
+//å°†è¾“å…¥åˆ°å†…å­˜ä¸­çš„æ•°æ®å­˜åˆ°æ–‡ä»¶ä¸­
+void saveToFile()
 {
     FILE* fp1 = fopen("schools.txt", "w");
     if (fp1 == NULL)
     {
-        printf("ÎÄ¼şÎ´³É¹¦´ò¿ª£¡£¡£¡\n");
+        printf("æ–‡ä»¶æœªæˆåŠŸæ‰“å¼€ï¼ï¼ï¼\n");
     }
+
+    //fprintf(fp1, "%d\n", n);//å­¦æ ¡æ€»æ•°
     for (int i = 0; i < n; i++)
     {
         fprintf(fp1, "%s\n", schools[i].name);
-        //numberÑ§Ğ£ĞòºÅ
-        //0Ñ§Ğ£×Ü·Ö   1ÄĞ×Ó×Ü·Ö  2Å®×Ó×Ü·Ö
+        //numberå­¦æ ¡åºå·
+        //0å­¦æ ¡æ€»åˆ†   1ç”·å­æ€»åˆ†  2å¥³å­æ€»åˆ†
         fprintf(fp1, "%d %d %d %d \n", 
             schools[i].number,schools[i].total_score[0], schools[i].total_score[1], schools[i].total_score[2]);
         for (int j = 0; j < m + w; j++)
         {
-            fprintf(fp1, "%d ", schools[i].scores[j]);//¸÷¸öÏîÄ¿µÃ·Ö
+            fprintf(fp1, "%d ", schools[i].scores[j]);//å„ä¸ªé¡¹ç›®å¾—åˆ†
         }
         fprintf(fp1, "\n\n");
     }
@@ -132,8 +173,10 @@ void saveToFile()//½«ÊäÈëµ½ÄÚ´æÖĞµÄÊı¾İ´æµ½ÎÄ¼şÖĞ
     FILE* fp2 = fopen("sports.txt", "w");
     if (fp2 == NULL)
     {
-        printf("ÎÄ¼şÎ´³É¹¦´ò¿ª£¡£¡£¡\n");
+        printf("æ–‡ä»¶æœªæˆåŠŸæ‰“å¼€ï¼ï¼ï¼\n");
     }
+    //ä¿å­˜ç”·å­é¡¹ç›®æ•°é‡ã€å¥³å­é¡¹ç›®æ•°é‡
+    //fprintf(fp2, "%d %d\n", m, w);
     for (int i = 0; i < m + w; i++)
     {
         fprintf(fp2, "%d %s\n",sports[i].number ,sports[i].name);
@@ -146,17 +189,20 @@ void saveToFile()//½«ÊäÈëµ½ÄÚ´æÖĞµÄÊı¾İ´æµ½ÎÄ¼şÖĞ
     }
     fclose(fp2);
 }
-
-void merge_sort(School temp[], int st, int en, int option, School temp1[])//°´ÕÕ²»Í¬µÄ²ÎÊı¶ÔÑ§Ğ£Êı×é½øĞĞÅÅĞò
+//æŒ‰ç…§ä¸åŒçš„å‚æ•°å¯¹å­¦æ ¡æ•°ç»„è¿›è¡Œæ’åº
+void merge_sort(School temp[], int st, int en, int option, School temp1[])
 {
-    //¸ù¾İoption£¬Ñ¡Ôñ°´ÕÕ²»Í¬µÄ²ÎÊıÅÅĞò
-    //0Ñ§Ğ£×Ü·Ö£¬1ÄĞ×Ó×Ü·Ö£¬2Å®×Ó×Ü·Ö
-    if (en - st == 1)return;
+    //æ ¹æ®optionï¼Œé€‰æ‹©æŒ‰ç…§ä¸åŒçš„å‚æ•°æ’åº
+    //0å­¦æ ¡æ€»åˆ†ï¼Œ1ç”·å­æ€»åˆ†ï¼Œ2å¥³å­æ€»åˆ†
+    if (en - st == 1)return;//å¾…æ’åºçš„èŒƒå›´åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œç›´æ¥è¿”å›
     int mid = st + (en - st) / 2;
+    //å·¦åŠéƒ¨åˆ†
     merge_sort(temp, st, mid, option, temp1);
+    //å³åŠéƒ¨åˆ†
     merge_sort(temp, mid, en, option, temp1);
 
     int st1 = st, st2 = mid, tst = st;
+    //åˆå¹¶ä¸¤ä¸ªæœ‰åºå­æ•°ç»„
     while (st1 < mid && st2 < en)
     {
         if (temp[st1].total_score[option] > temp[st2].total_score[option])temp1[tst++] = temp[st1++];
@@ -164,79 +210,97 @@ void merge_sort(School temp[], int st, int en, int option, School temp1[])//°´ÕÕ
     }
     while (st1 < mid)temp1[tst++] = temp[st1++];
     while (st2 < en)temp1[tst++] = temp[st2++];
-    int j;
-    for (j = st; j < en; j++)
+
+    //æ‹·è´
+    for (int j = st; j < en; j++)
         temp[j] = temp1[j];
 }
-
-void schoolInput(int schoolnum, int award_num, int i, int pos)//ÊäÈëÑ§Ğ£³É¼¨²¢Í³¼Æ
+//è¾“å…¥å­¦æ ¡æˆç»©å¹¶ç»Ÿè®¡
+void inputSchoolScores(int schoolnum, int award_num, int i, int pos)
 {
-    if (award_num == 3)
+    if (award_num == 3)//è·å¥–äººæ•°ä¸º3
     {
         schools[schoolnum].scores[pos] += three[i];
         schools[schoolnum].total_score[0] += three[i];
-        if (pos >= 0 && pos < m)schools[schoolnum].total_score[1] += three[i];
-        else if (pos >= m && pos < m + w)schools[schoolnum].total_score[2] += three[i];
+        //å±äºç”·å­é¡¹ç›®
+        if (pos >= 0 && pos < m)
+            schools[schoolnum].total_score[1] += three[i];
+        //å±äºå¥³å­é¡¹ç›®
+        else if (pos >= m && pos < m + w)
+            schools[schoolnum].total_score[2] += three[i];
     }
-    else if (award_num == 5)
+    else if (award_num == 5)//è·å¥–äººæ•°ä¸º5
     {
         schools[schoolnum].scores[pos] += five[i];
         schools[schoolnum].total_score[0] += five[i];
-        if (pos >= 0 && pos < m)schools[schoolnum].total_score[1] += five[i];
-        else if (pos >= m && pos < m + w)schools[schoolnum].total_score[2] += five[i];
+        if (pos >= 0 && pos < m)
+            schools[schoolnum].total_score[1] += five[i];
+        else if (pos >= m && pos < m + w)
+            schools[schoolnum].total_score[2] += five[i];
     }
 }
-
-void inputScores()//ÊäÈëÏîÄ¿³É¼¨²Ëµ¥
+//è¾“å…¥é¡¹ç›®æˆç»©èœå•
+void inputScores()
 {
 loop1:
     system("cls");
-    printf("Çë°´Ë³ĞòÊäÈë¸÷¸öÏîÄ¿³É¼¨£¨ÈıÎ»»òºóÎåÎ»ÎªÇ°ÈıÃû»òÇ°ÎåÃûµÄ³É¼¨,Ãû´Î¿¿Ç°µÄÏÈÊäÈë£©£º\n");
+    printf("è¯·æŒ‰é¡ºåºè¾“å…¥å„ä¸ªé¡¹ç›®æˆç»©ï¼ˆä¸‰ä½æˆ–äº”ä½ä¸ºå‰ä¸‰åæˆ–å‰äº”åçš„æˆç»©,åæ¬¡é å‰çš„å…ˆè¾“å…¥ï¼‰ï¼š\n");
     firstUsed();
+    printf("===========================================\n");
     for (int pos = 0; pos < m + w; pos++)
     {
-        printf("ÏîÄ¿Ãû³Æ:%s,È¡Ç°%dÃû:\n",sports[pos].name,sports[pos].award_num);
+        printf("é¡¹ç›®åç§°:%s,å–å‰%då:\n",sports[pos].name,sports[pos].award_num);
         int award_num = sports[pos].award_num;
-        printf("ÊäÈë»ñ½±Ñ§Ğ£±àºÅ:");
+        printf("è¾“å…¥è·å¥–å­¦æ ¡ç¼–å·:");
 
         for (int i = 0; i < award_num; i++)
         {
-            scanf("%d", &sports[pos].win_school[i]);//ÊäÈë»ñ½±Ñ§Ğ£±àºÅ
+            scanf("%d", &sports[pos].win_school[i]);//è¾“å…¥è·å¥–å­¦æ ¡ç¼–å·
             sports[pos].win_school[i]--;
             if (sports[pos].win_school[i] < 0 || sports[pos].win_school[i] >= m + w)
             {
                 i--;
-                printf("Ã»ÓĞÄúÊäÈëµÄ±àºÅ¶ÔÓ¦µÄÑ§Ğ££¬ÇëÖØĞÂÊäÈë£º\n");
+                printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„ç¼–å·å¯¹åº”çš„å­¦æ ¡ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š\n");
                 continue;
             }
-            schoolInput(sports[pos].win_school[i], award_num, i, pos);
+            //è¾“å…¥å­¦æ ¡æˆç»©å¹¶ç»Ÿè®¡
+            inputSchoolScores(sports[pos].win_school[i], award_num, i, pos);
         }
+        printf("===========================================\n");
     }
 
     int flag = 0;
 loop2:
     system("cls");
     printf("\n\n\n");
+    printf("\033[46;37m");
     printf("\t\t**************************************************\n");
-    printf("\t\t*     ÄúµÄÊäÈëÒÑÍê³É£¬ÇëÊäÈëÒÔÏÂ²Ù×÷¶ÔÓ¦±àºÅ     *\n");
+    printf("\t\t*     æ‚¨çš„è¾“å…¥å·²å®Œæˆï¼Œè¯·è¾“å…¥ä»¥ä¸‹æ“ä½œå¯¹åº”ç¼–å·     *\n");
     printf("\t\t*================================================*\n");
-    printf("\t\t*       +      1.±£´æÊäÈë       +                *\n");
+    printf("\t\t*       +      1.ä¿å­˜è¾“å…¥       +                *\n");
     printf("\t\t*================================================*\n");
-    printf("\t\t*       +      2.ÖØĞÂÊäÈë       +                *\n");
+    printf("\t\t*       +      2.é‡æ–°è¾“å…¥       +                *\n");
     printf("\t\t*================================================*\n");
-    printf("\t\t*       +      3.·µ»ØÖ÷²Ëµ¥     +                *\n");
+    printf("\t\t*       +      3.è¿”å›ä¸»èœå•     +                *\n");
     printf("\t\t*================================================*\n");
-    printf("\t\t*       +      4.ÍË³öÏµÍ³       +                *\n");
+    printf("\t\t*       +      4.é€€å‡ºç³»ç»Ÿ       +                *\n");
     printf("\t\t**************************************************\n");
-    if (flag == 0)printf("ÇëÊäÈëÄúÑ¡ÔñµÄÑ¡Ïî¶ÔÓ¦µÄ±àºÅ£º\n");
-    else printf("Ã»ÓĞÄúÊäÈëµÄÑ¡Ïî±àºÅ£¬ÇëÖØĞÂÊäÈë£º\n");
+    printf("\033[0m");
+    if (flag == 0)printf("è¯·è¾“å…¥æ‚¨é€‰æ‹©çš„é€‰é¡¹å¯¹åº”çš„ç¼–å·ï¼š\n");
+    else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ç¼–å·ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š\n");
     int option;
-    scanf("%d", &option);
+    if (scanf("%d", &option) != 1) {
+        printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼\n");
+        while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+        flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+    }
+    else flag = 0;
+
     switch (option)
     {
     case 1:
         saveToFile();
-        printf("\n\n\n\t\t\t\t±£´æ³É¹¦£¡£¡£¡\n");
+        printf("\n\n\n\t\t\t\tä¿å­˜æˆåŠŸï¼ï¼ï¼\n");
         Sleep(1000);
         goto loop2;
         break;
@@ -259,40 +323,52 @@ loop2:
         goto loop1;
     }
 }
-
-void showSchool()///Êä³öÑ§Ğ£²Ëµ¥
+//è¾“å‡ºå­¦æ ¡èœå•
+void showSchool()
 {
-    const char* str[] = { "×Ü·Ö","ÄĞ×Ó×Ü·Ö","Å®×Ó×Ü·Ö" };
+    const char* str[] = { "æ€»åˆ†","ç”·å­æ€»åˆ†","å¥³å­æ€»åˆ†" };
+    //æ ‡è®°è¾“å…¥æ˜¯å¦ç¬¦åˆè¦æ±‚ 0é”™è¯¯/1æ­£ç¡®
     int flag = 0;
     while (1)
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
-        printf("\t\t*     +    1.°´Ñ§Ğ£±àºÅÁĞ³ö      +       *\n");
+        printf("\t\t*     +    1.æŒ‰å­¦æ ¡ç¼–å·åˆ—å‡º      +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    2.°´Ñ§Ğ£×Ü·ÖÁĞ³ö      +       *\n");
+        printf("\t\t*     +    2.æŒ‰å­¦æ ¡æ€»åˆ†åˆ—å‡º      +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    3.°´ÄĞ×ÓÏîÄ¿×Ü·ÖÁĞ³ö  +       *\n");
+        printf("\t\t*     +    3.æŒ‰ç”·å­é¡¹ç›®æ€»åˆ†åˆ—å‡º  +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    4.°´Å®×ÓÏîÄ¿×Ü·ÖÁĞ³ö  +       *\n");
+        printf("\t\t*     +    4.æŒ‰å¥³å­é¡¹ç›®æ€»åˆ†åˆ—å‡º  +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    5.·µ»ØÖ÷²Ëµ¥          +       *\n");
+        printf("\t\t*     +    5.è¿”å›ä¿¡æ¯æŸ¥çœ‹èœå•    +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    6.ÍË³öÏµÍ³            +       *\n");
+        printf("\t\t*     +    6.é€€å‡ºç³»ç»Ÿ            +       *\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
         if (flag == 0)
-            printf("ÇëÊäÈëÑ¡Ïî¶ÔÓ¦±àºÅ£º");
-        else printf("Ã»ÓĞÄúÊäÈëµÄÑ¡Ïî£¬ÇëÖØĞÂÊäÈë£º");
+            printf("è¯·è¾“å…¥é€‰é¡¹å¯¹åº”ç¼–å·ï¼š");
+        else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š\n");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else flag = 0;
+
         switch (option)
         {
         case 1:
             system("cls");
-            printf("\t|\t\tÑ§Ğ£°´ÕÕ±àºÅÁĞ³ö                       |\n");  
+            printf("\033[36m");//è®¾ç½®å­—ä½“é¢œè‰²
+            printf("\t|\t\tå­¦æ ¡æŒ‰ç…§ç¼–å·åˆ—å‡º                       |\n");  
             printf("\t|______________________________________________________|\n");
-            printf("\t|Ñ§Ğ£±àºÅ|     Ñ§Ğ£Ãû³Æ     |Ñ§Ğ£×Ü·Ö|ÄĞ×Ó×Ü·Ö|Å®×Ó×Ü·Ö|\n");
+            printf("\t|å­¦æ ¡ç¼–å·|     å­¦æ ¡åç§°     |å­¦æ ¡æ€»åˆ†|ç”·å­æ€»åˆ†|å¥³å­æ€»åˆ†|\n");
             printf("\t|________|__________________|________|________|________|\n");
             for (int i = 0; i < n; i++)
             {
@@ -300,23 +376,26 @@ void showSchool()///Êä³öÑ§Ğ£²Ëµ¥
                     schools[i].number, schools[i].name, schools[i].total_score[0], schools[i].total_score[1], schools[i].total_score[2]);
                 printf("\t|________|__________________|________|________|________|\n");
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
-            getchar();
+            printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----");
+            getchar();//å¸æ”¶å›è½¦ï¼Œç¼“å†²æ˜¾ç¤ºä¿¡æ¯
             getchar();
             break;
-
         case 2:
         case 3:
         case 4:
             system("cls");
+            //å¤åˆ¶åŸæ•°ç»„ï¼Œä¸æ”¹å˜åŸæ¥çš„é¡ºåº
             for (int i = 0; i < n; i++)
             {
                 temp[i] = schools[i];
             }
             merge_sort(temp, 0, n, option - 2, temp1);
-            printf("\t|\t\tÑ§Ğ£°´ÕÕ%sÁĞ³ö\t                 |\n", str[option - 2]);
+            printf("\033[36m");
+
+            printf("\t|\t\tå­¦æ ¡æŒ‰ç…§%såˆ—å‡º\t               |\n", str[option - 2]);
             printf("\t|______________________________________________________|\n");
-            printf("\t|Ñ§Ğ£±àºÅ|     Ñ§Ğ£Ãû³Æ     |Ñ§Ğ£×Ü·Ö|ÄĞ×Ó×Ü·Ö|Å®×Ó×Ü·Ö|\n");
+            printf("\t|å­¦æ ¡ç¼–å·|     å­¦æ ¡åç§°     |å­¦æ ¡æ€»åˆ†|ç”·å­æ€»åˆ†|å¥³å­æ€»åˆ†|\n");
             printf("\t|________|__________________|________|________|________|\n");
             for (int i = 0; i < n; i++)
             {
@@ -324,7 +403,9 @@ void showSchool()///Êä³öÑ§Ğ£²Ëµ¥
                     temp[i].number, temp[i].name, temp[i].total_score[0], temp[i].total_score[1], temp[i].total_score[2]);
                 printf("\t|________|__________________|________|________|________|\n");
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
+            printf("\033[0m");
+
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----");
             getchar();
             getchar();
             break;
@@ -343,70 +424,100 @@ void showSchool()///Êä³öÑ§Ğ£²Ëµ¥
     }
 }
 
-void showSports()///Êä³ö²éÕÒÏîÄ¿²Ëµ¥
+//è¾“å‡ºæŸ¥æ‰¾é¡¹ç›®èœå•
+void showSports()
 {
-    int flag = 0;
+    int flag = 0;//æ ‡è®°
     while (1)
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[46;37m");
         printf("\t\t******************************************\n");
-        printf("\t\t*     +    1.²éÑ¯Ñ§Ğ£ÏîÄ¿³É¼¨   +        *\n");
+        printf("\t\t*     +    1.æŸ¥è¯¢å­¦æ ¡é¡¹ç›®æˆç»©   +        *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    2.²éÑ¯ÏîÄ¿»ñ½±Ñ§Ğ£   +        *\n");
+        printf("\t\t*     +    2.æŸ¥è¯¢é¡¹ç›®è·å¥–å­¦æ ¡   +        *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    3.·µ»ØÖ÷²Ëµ¥         +        *\n");
+        printf("\t\t*     +    3.è¿”å›ä¿¡æ¯æŸ¥çœ‹èœå•   +        *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    4.ÍË³öÏµÍ³           +        *\n");
+        printf("\t\t*     +    4.é€€å‡ºç³»ç»Ÿ           +        *\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
         if (flag == 0)
-            printf("ÇëÊäÈëÑ¡Ïî¶ÔÓ¦±àºÅ£º");
-        else printf("ÄúÊäÈëµÄÑ¡Ïî²»´æÔÚ£¬ÇëÖØĞÂÊäÈë£º");
+            printf("è¯·è¾“å…¥é€‰é¡¹å¯¹åº”ç¼–å·ï¼š");
+        else printf("æ‚¨è¾“å…¥çš„é€‰é¡¹ä¸å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
         int option;
-        scanf("%d", &option);
-        printf("*****************************************************\n");
-
+        if (scanf("%d", &option) != 1) 
+        {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼\n");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else flag = 0;
+        if(option!=4)
+            printf("*****************************************************\n");
+        int f = 0;
         switch (option)
         {
         case 1:
             //system("cls");
-            printf("ÇëÊäÈëÒª²éÑ¯µÄÑ§Ğ£±àºÅ£º");
+            printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å­¦æ ¡ç¼–å·ï¼š");
             int num;
-            scanf("%d", &num);
+            f = scanf("%d", &num);
+            while (f!= 1||num>20||num<0)
+            {
+                f = scanf("%d", &num);
+                while (getchar() != '\n');//æ¸…ç©ºç¼“å†²åŒº
+                if (num > 0 && num <= 20)
+                    break;
+                printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ç¼–å·:");
+            }
             num--;
-            printf("ÇëÊäÈëÒª²éÑ¯µÄ¸ÃÑ§Ğ£µÄÏîÄ¿±àºÅ£º");
+            printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„è¯¥å­¦æ ¡çš„é¡¹ç›®ç¼–å·ï¼š");
             int sp;
-            scanf("%d", &sp);
+            f = scanf("%d", &sp);
+            while (f != 1 || sp > m + w || sp < 0)
+            {
+                f = scanf("%d", &sp);
+                while (getchar() != '\n');//æ¸…ç©ºç¼“å†²åŒº
+                if (sp > 0 && sp <= m + w)
+                    break;
+                printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ç¼–å·:");
+            }
             sp--;
             printf("==================================================\n");
-            printf("|%sµÄ%sÏîÄ¿»ñ½±µÃ·ÖÇé¿ö£º", schools[num].name, sports[sp].name);
-            printf("%3d ·Ö\n", schools[num].scores[sp]);
+            printf("|%sçš„%sé¡¹ç›®è·å¥–å¾—åˆ†æƒ…å†µï¼š", schools[num].name, sports[sp].name);
+            printf("%3d åˆ†\n", schools[num].scores[sp]);
             printf("==================================================\n");
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----");
             getchar();
             getchar();
             break;
         case 2:
             //system("cls");
-            printf("ÇëÊäÈëÒª²éÑ¯µÄÏîÄ¿±àºÅ£º");
+            printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„é¡¹ç›®ç¼–å·ï¼š");
             int num1;
             scanf("%d", &num1);
+            //æ•°é‡ä¸è¶…è¿‡20 å¤§äº0
             if (num1 <= 0 || num1 > 20)
             {
-                printf("ÄúÊäÈëµÄÏîÄ¿±àºÅÓĞÎó£¬ÇëÖØĞÂÊäÈë:");
+                printf("æ‚¨è¾“å…¥çš„é¡¹ç›®ç¼–å·æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥:");
                 scanf("%d", &num1);
             }
             num1--;
-            printf("Äú²éÑ¯µÄ%sÏîÄ¿µÄ»ñ½±Ñ§Ğ£ÈçÏÂ£º\n", sports[num1].name);
-            printf("\t_____________________________\n");
-            printf("\t|Ñ§Ğ£±àºÅ|     Ñ§Ğ£Ãû³Æ     |\n");
-            printf("\t|________|__________________|\n");
+            printf("æ‚¨æŸ¥è¯¢çš„%sé¡¹ç›®çš„è·å¥–å­¦æ ¡å¦‚ä¸‹ï¼š\n", sports[num1].name);
+            printf("\t____________________________________\n");
+            printf("\t|å­¦æ ¡ç¼–å·|     å­¦æ ¡åç§°     | æ’å |\n");
+            printf("\t|________|__________________|______|\n");
             for (int i = 0; i < sports[num1].award_num; i++)
             {
-                printf("\t|%8d|%18s|\n", schools[sports[num1].win_school[i]].number, schools[sports[num1].win_school[i]].name);
-                printf("\t|________|__________________|\n");
+                printf("\t|%8d|%18s|%4d  |\n", 
+                    schools[sports[num1].win_school[i]].number, schools[sports[num1].win_school[i]].name,i+1);
+                printf("\t|________|__________________|______|\n");
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----");
             getchar();
             getchar();
             break;
@@ -424,43 +535,57 @@ void showSports()///Êä³ö²éÕÒÏîÄ¿²Ëµ¥
         }
     }
 }
-
-void setting()///ÉèÖÃ²Ëµ¥
+//è®¾ç½®èœå•(è®¾ç½®å‰ä¸‰æˆ–å‰äº”ã€å­¦æ ¡æ•°é‡ã€é¡¹ç›®æ•°é‡)
+void setting()
 {
     while (1)
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[46;37m");//è®¾ç½®é¢œè‰²
         printf("\t\t******************************************\n");
-        printf("\t\t*     +    1.ÉèÖÃÏîÄ¿Ç°Èı»òÇ°Îå  +       *\n");
+        printf("\t\t*     +    1.è®¾ç½®é¡¹ç›®å‰ä¸‰æˆ–å‰äº”  +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    2.ÉèÖÃÑ§Ğ£ÊıÄ¿        +       *\n");
+        printf("\t\t*     +    2.è®¾ç½®å­¦æ ¡æ•°ç›®        +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    3.ÉèÖÃÄĞ×ÓÏîÄ¿ÊıÄ¿    +       *\n");
+        printf("\t\t*     +    3.è®¾ç½®ç”·å­é¡¹ç›®æ•°ç›®    +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    4.ÉèÖÃÅ®×ÓÏîÄ¿ÊıÄ¿    +       *\n");
+        printf("\t\t*     +    4.è®¾ç½®å¥³å­é¡¹ç›®æ•°ç›®    +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    5.·µ»ØÖ÷²Ëµ¥          +       *\n");
+        printf("\t\t*     +    5.è¿”å›ä¸»èœå•          +       *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +    6.ÍË³öÏµÍ³            +       *\n");
+        printf("\t\t*     +    6.é€€å‡ºç³»ç»Ÿ            +       *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
-       
-        printf("ÇëÊäÈëÑ¡Ïî¶ÔÓ¦±àºÅ£º");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+
+        printf("è¯·è¾“å…¥é€‰é¡¹å¯¹åº”ç¼–å·ï¼š");
         int option;
-        scanf("%d", &option);
-        printf("**********************************************\n");
+        //scanf("%d", &option);
+        while (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        if(option<5)
+            printf("**********************************************\n");
         switch (option)
         {
         case 1:
             while (1)
             {
                 //system("cls");
-                printf("ÇëÊäÈëÒªÉèÖÃµÄÏîÄ¿±àºÅ£º");
+                printf("è¯·è¾“å…¥è¦è®¾ç½®çš„é¡¹ç›®ç¼–å·ï¼š");
                 int n1;
-                scanf("%d", &n1);
+                //scanf("%d", &n1);
+                while(scanf("%d", &n1) != 1) {
+                    printf("éæ³•è¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥æ•°å­—ï¼š");
+                    while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+                    continue; // é‡æ–°å¼€å§‹å¾ªç¯
+                }
                 n1--;
-                printf("ÇëÊäÈë3»ò5ÉèÖÃ¸ÃÏîÄ¿ÒªÈ¡µÄ»ñ½±Ãû´Î£º");
+                printf("è¯·è¾“å…¥3æˆ–5è®¾ç½®è¯¥é¡¹ç›®è¦å–çš„è·å¥–åæ¬¡ï¼š");
                 while (1)
                 {
                     int n2;
@@ -471,9 +596,9 @@ void setting()///ÉèÖÃ²Ëµ¥
                         break;
                     }
                     system("cls");
-                    printf("ÄúÊäÈëµÄÊı¾İÓĞÎó£¬ÇëÖØĞÂÊäÈë£º");
+                    printf("æ‚¨è¾“å…¥çš„æ•°æ®æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
                 }
-                printf("¼ÌĞøÉèÖÃÇëÊäÈë1£¬·µ»ØÉÏÒ»¼¶ÇëÊäÈë2£º");
+                printf("ç»§ç»­è®¾ç½®è¯·è¾“å…¥1ï¼Œè¿”å›ä¸Šä¸€çº§è¯·è¾“å…¥2ï¼š");
                 scanf("%d", &n1);
                 if (n1 == 1)continue;
                 else if (n1 == 2)break;
@@ -481,55 +606,63 @@ void setting()///ÉèÖÃ²Ëµ¥
             break;
         case 2:
             //system("cls");
-            printf("ÇëÊäÈëÑ§Ğ£ÊıÄ¿£º");
+            printf("è¯·è¾“å…¥å­¦æ ¡æ•°ç›®ï¼š");
             while (1)
             {
-                scanf("%d", &n);
-                //²ÎÈüÑ§Ğ£ÊıÁ¿²»ÄÜ´óÓÚ20£¬²»ÄÜĞ¡ÓÚ1
+                if (scanf("%d", &n) != 1) {
+                    printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+                    while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+                    continue; // é‡æ–°å¼€å§‹å¾ªç¯
+                }
+                //å‚èµ›å­¦æ ¡æ•°é‡ä¸èƒ½å¤§äº20ï¼Œä¸èƒ½å°äº1
                 if (n <= 20 && n >= 1)break;
                 else
                 {
                     //system("cls");
-                    printf("ÄúÊäÈëµÄÑ§Ğ£ÊıÄ¿²»ºÏ·¨£¬ÇëÖØĞÂÊäÈë£º");
+                    printf("æ‚¨è¾“å…¥çš„å­¦æ ¡æ•°ç›®ä¸åˆæ³•ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
                 }
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----\n");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----\n");
             getchar();
             getchar();
             break;
         case 3:
             //system("cls");
-            printf("ÇëÊäÈëÄĞ×ÓÏîÄ¿ÊıÄ¿£º");
+            printf("è¯·è¾“å…¥ç”·å­é¡¹ç›®æ•°ç›®ï¼š");
             while (1)
             {
-                scanf("%d", &m);
-                //ÄĞ×ÓÏîÄ¿¸öÊı²»ÄÜ´óÓÚ20£¬²»ÄÜĞ¡ÓÚ1
+                if (scanf("%d", &m) != 1) {
+                    printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+                    while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+                    continue; // é‡æ–°å¼€å§‹å¾ªç¯
+                }
+                //ç”·å­é¡¹ç›®ä¸ªæ•°ä¸èƒ½å¤§äº20ï¼Œä¸èƒ½å°äº1
                 if (m <= 20 && m >= 0)break;
                 else
                 {
                     //system("cls");
-                    printf("ÄúÊäÈëµÄÄĞ×ÓÏîÄ¿ÊıÄ¿²»ºÏ·¨£¬ÇëÖØĞÂÊäÈë£º");
+                    printf("æ‚¨è¾“å…¥çš„ç”·å­é¡¹ç›®æ•°ç›®ä¸åˆæ³•ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
                 }
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----\n");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----\n");
             getchar();
             getchar();
             break;
         case 4:
             //system("cls");
-            printf("ÇëÊäÈëÅ®×ÓÏîÄ¿ÊıÄ¿£º");
+            printf("è¯·è¾“å…¥å¥³å­é¡¹ç›®æ•°ç›®ï¼š");
             while (1)
             {
                 scanf("%d", &w);
-                //Å®×ÓÏîÄ¿¸öÊı²»ÄÜ´óÓÚ20£¬²»ÄÜĞ¡ÓÚ1
+                //å¥³å­é¡¹ç›®ä¸ªæ•°ä¸èƒ½å¤§äº20ï¼Œä¸èƒ½å°äº1
                 if (w <= 20 && w >= 0)break;
                 else
                 {
                     //system("cls");
-                    printf("ÄúÊäÈëµÄÅ®×ÓÏîÄ¿ÊıÄ¿²»ºÏ·¨£¬ÇëÖØĞÂÊäÈë£º");
+                    printf("æ‚¨è¾“å…¥çš„å¥³å­é¡¹ç›®æ•°ç›®ä¸åˆæ³•ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
                 }
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----\n");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----\n");
             getchar();
             getchar();
             break;
@@ -547,94 +680,108 @@ void setting()///ÉèÖÃ²Ëµ¥
         FILE* fp = fopen("setting.txt", "w");
         if (fp == NULL)
         {
-            printf("ÎÄ¼şÎ´³É¹¦´ò¿ª£¡£¡£¡\n");
+            printf("æ–‡ä»¶æœªæˆåŠŸæ‰“å¼€ï¼ï¼ï¼\n");
             system("pause");
         }
+        fprintf(fp, "%d\n%d\n%d\n", n, m, w);
         for (int i = 0; i < m + w; i++)
         {
-            fprintf(fp, "%d ", sports[i].award_num);// È¡3»òÕß5Ãû
+            fprintf(fp, "%d ", sports[i].award_num);// å–3æˆ–è€…5å
         }
         //for (int i = m + w; i < 50; i++)
         //{
         //    fprintf(fp, "%d ", default_num);//
         //}
-        fprintf(fp, "\n%d\n%d\n%d\n", n, m, w);
         fclose(fp);
     }
 }
-
-void InputName()///ÊäÈëÑ§Ğ£ºÍÏîÄ¿Ãû³Æ²Ëµ¥
+//è¾“å…¥å­¦æ ¡å’Œé¡¹ç›®åç§°èœå•
+void inputName()
 {
     int flag = 0;
     while (1)
     {
         system("cls");
         printf("\n\n\n");
+        printf("\033[46;37m");//è®¾ç½®èƒŒæ™¯é¢œè‰²å’Œå­—ä½“é¢œè‰²
         printf("\t\t******************************************\n");
-        printf("\t\t*     +      1.ÊäÈëÑ§Ğ£Ãû³Æ        +     *\n");
+        printf("\t\t*     +      1.è¾“å…¥å­¦æ ¡åç§°        +     *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +      2.ÊäÈë±ÈÈüÏîÄ¿Ãû³Æ    +     *\n");
+        printf("\t\t*     +      2.è¾“å…¥æ¯”èµ›é¡¹ç›®åç§°    +     *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +      3.·µ»ØÖ÷²Ëµ¥          +     *\n");
+        printf("\t\t*     +      3.è¿”å›ä¸»èœå•          +     *\n");
         printf("\t\t*========================================*\n");
-        printf("\t\t*     +      4.ÍË³öÏµÍ³            +     *\n");
+        printf("\t\t*     +      4.é€€å‡ºç³»ç»Ÿ            +     *\n");
         printf("\t\t*========================================*\n");
         printf("\t\t******************************************\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
         if (flag == 0)
-            printf("ÇëÊäÈëÑ¡Ïî¶ÔÓ¦±àºÅ£º\n");
-        else printf("Ã»ÓĞÄúÊäÈëµÄÑ¡Ïî£¬ÇëÖØĞÂÊäÈë£º\n");
+            printf("è¯·è¾“å…¥é€‰é¡¹å¯¹åº”ç¼–å·ï¼š");
+        else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼\n");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else flag = 0;
         switch (option)
         {
         case 1:
             system("cls");
-            printf("Çë°´ÕÕ±àºÅË³ĞòÊäÈëÑ§Ğ£Ãû³Æ£¨ÊäÈë stop £¬ÔòÍ£Ö¹ÊäÈë£©£º\n");
+            printf("è¯·æŒ‰ç…§ç¼–å·é¡ºåºè¾“å…¥ %d æ‰€å­¦æ ¡åç§°ï¼š(è¾“å…¥å®Œæˆåè‡ªåŠ¨ä¿å­˜)\n",n);
             for (int i = 0; i < n; i++)
             {
-                printf("±àºÅ %d£º", i + 1);
+                printf("ç¼–å· %dï¼š", i + 1);
                 char tmp[20] = {'\0'};
                 scanf("%s", tmp);
                 if (strcmp(tmp, "stop") == 0)
                 {
-                    printf("ÊäÈëÍ£Ö¹!\n");
+                    n = i;
+                    printf("è¾“å…¥åœæ­¢!\n");
                     break;
                 }
                 strcpy(schools[i].name, tmp);
                 schools[i].number = i + 1;
                 //printf("...%s", schools[i].name);
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----\n");
-            saveToFile();
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----\n");
+            saveToFile();//ä¿å­˜åˆ°æ–‡ä»¶
             getchar();
             getchar();
             break;
         case 2:
             system("cls");
-            printf("Çë°´ÕÕ±àºÅË³ĞòÊäÈëÏîÄ¿Ãû³Æ£¨ÊäÈë stop £¬ÔòÍ£Ö¹ÊäÈë£©£º\n");
+            printf("è¯·æŒ‰ç…§ç¼–å·é¡ºåºè¾“å…¥ %d ä¸ªé¡¹ç›®åç§°å’Œ %d ä¸ªå¥³å­é¡¹ç›®åç§°ï¼š(è¾“å…¥å®Œæˆåè‡ªåŠ¨ä¿å­˜)\n",m,w);
             for (int i = 0; i < m + w; i++)
             {
                 char tmp[20] = { '\0' };
                 if (i < m)
                 {
-                    printf("ÄĞ×ÓÏîÄ¿ ±àºÅ %d£º", i + 1);
+                    printf("ç”·å­é¡¹ç›® ç¼–å· %dï¼š", i + 1);
                     scanf("%s", &tmp);
                 }
                 else
                 {
-                    printf("Å®×ÓÏîÄ¿ ±àºÅ %d£º", i + 1);
+                    printf("å¥³å­é¡¹ç›® ç¼–å· %dï¼š", i + 1);
                     scanf("%s", &tmp);
                 }
-                
+
+                scanf("%s", tmp);
                 if (strcmp(tmp, "stop") == 0)
                 {
-                    printf("ÊäÈëÍ£Ö¹!\n");
+                    if (i < m)
+                        m = i;//åœæ­¢æ—¶ï¼Œè¾“å…¥çš„ç”·å­é¡¹ç›®æ•°
+                    if (i > m)
+                        w = m + w - i - 1;//åœæ­¢æ—¶ï¼Œè¾“å…¥çš„å¥³å­é¡¹ç›®æ•°
+                    printf("è¾“å…¥åœæ­¢!\n");
                     break;
                 }
                 strcpy(sports[i].name, tmp);
                 sports[i].number = i + 1;
             }
-            printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----\n");
+            printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----\n");
             saveToFile();
             getchar();
             getchar();
@@ -653,13 +800,15 @@ void InputName()///ÊäÈëÑ§Ğ£ºÍÏîÄ¿Ãû³Æ²Ëµ¥
         }
     }
 }
-void showAllSchools()//ËùÓĞ²ÎÈüÑ§Ğ£
+//æ‰€æœ‰å‚èµ›å­¦æ ¡
+void showAllSchools()
 {
     system("cls");
     printf("\n\n");
-    printf("\t|========ËùÓĞ²ÎÈüÑ§Ğ£=======|\n");
+    printf("\033[36m");
+    printf("\t|========æ‰€æœ‰å‚èµ›å­¦æ ¡=======|\n");
     printf("\t_____________________________\n");
-    printf("\t|Ñ§Ğ£±àºÅ|     Ñ§Ğ£Ãû³Æ     |\n");
+    printf("\t|å­¦æ ¡ç¼–å·|     å­¦æ ¡åç§°     |\n");
     printf("\t|________|__________________|\n");
     for (int i = 0; i < n; i++)
     {
@@ -667,18 +816,21 @@ void showAllSchools()//ËùÓĞ²ÎÈüÑ§Ğ£
             schools[i].number, schools[i].name);
         printf("\t|________|__________________|\n");
     }
-    printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
+    printf("\033[0m");
+    printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§-----");
     getchar();
     getchar();
 }
-void showAllGames()//Õ¹Ê¾ËùÓĞ±ÈÈüÏîÄ¿
+//å±•ç¤ºæ‰€æœ‰æ¯”èµ›é¡¹ç›®
+void showAllGames()
 {
     readFromFile();
     system("cls");
     printf("\n\n");
-    printf("\t|========ËùÓĞ±ÈÈüÏîÄ¿=======|\n");
+    printf("\033[36m");
+    printf("\t|========æ‰€æœ‰æ¯”èµ›é¡¹ç›®=======|\n");
     printf("\t_____________________________\n");
-    printf("\t|ÏîÄ¿±àºÅ|     ÏîÄ¿Ãû³Æ     |\n");
+    printf("\t|é¡¹ç›®ç¼–å·|     é¡¹ç›®åç§°     |\n");
     printf("\t|________|__________________|\n");
     for (int i = 0; i < m+w; i++)
     {
@@ -686,66 +838,209 @@ void showAllGames()//Õ¹Ê¾ËùÓĞ±ÈÈüÏîÄ¿
             sports[i].number, sports[i].name);
         printf("\t|________|__________________|\n");
     }
-    printf("-----°´ÈÎÒâ¼ü·µ»ØÉÏÒ»¼¶-----");
+    printf("\033[40;37m");
+    printf("-----æŒ‰ä»»æ„é”®è¿”å›ä¸Šä¸€çº§--------------");
     getchar();
     getchar();
 }
-
-void menu()///Ö÷²Ëµ¥µÄ²Ù×÷
+//ä¿¡æ¯å½•å…¥èœå•
+void inputInfo()
+{
+    int flag = 0;
+    while (1)
+    {
+        system("cls");
+        printf("\n\n\n");
+        printf("\033[46;37m");
+        printf("\n\t\t+==============================================================+\n");
+        printf("\t\t+                       ä¿¡æ¯å½•å…¥èœå•                           +\n");
+        printf("\t\t+==============================================================+\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[42;30m");
+        printf("\t\t+                    1.ã€è¾“å…¥å­¦æ ¡å’Œé¡¹ç›®åç§°ã€‘                  +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    2.ã€è¾“å…¥é¡¹ç›®æˆç»©ã€‘                        +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    3.ã€è¿”å›ä¸»èœå•ã€‘                          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+                    4.ã€é€€å‡ºç³»ç»Ÿã€‘                            +\n");
+        printf("\033[41;33m");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ ã€æç¤ºã€‘                                                     +\n");
+        printf("\t\t+     1.åˆæ¬¡ä½¿ç”¨æ—¶ï¼Œè¯·å…ˆå½•å…¥ç›¸å…³ä¿¡æ¯                           +\n");
+        printf("\t\t+     2.é»˜è®¤è®¾ç½®ä¸º10æ‰€å‚èµ›å­¦æ ¡ã€5ä¸ªç”·å­é¡¹ç›®å’Œ5ä¸ªå¥³å­é¡¹ç›®       +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        if (flag == 0)
+            printf("è¯·è¾“å…¥å¯¹åº”é€‰é¡¹çš„ç¼–å·ï¼š");
+        else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
+        int option;
+        if (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else
+            flag = 0;
+        switch (option)
+        {
+        case 1:
+            //è¾“å…¥å­¦æ ¡å’Œé¡¹ç›®åç§°
+            inputName();
+            break;
+        case 2:
+            //è¾“å…¥é¡¹ç›®æˆç»©
+            inputScores();
+            break;
+        case 3:
+            //è¿”å›ä¸»èœå•
+            menu();
+            break;
+        case 4:
+            //é€€å‡ºç³»ç»Ÿ
+            saveToFile();
+            Sleep(1000);
+            exit(0);
+            break;
+        default:
+            flag = 1;
+        }
+    }
+}
+//æŸ¥çœ‹ä¿¡æ¯
+void checkInfo()
+{
+    int flag = 0;
+    while (1)
+    {
+        system("cls");
+        printf("\n\n\n");
+        printf("\033[46;37m");
+        printf("\n\t\t+==============================================================+\n");
+        printf("\t\t+                       ä¿¡æ¯æŸ¥çœ‹èœå•                           +\n");
+        printf("\t\t+==============================================================+\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[42;30m");
+        printf("\t\t+          +++         1.ã€æŸ¥çœ‹å‚èµ›å­¦æ ¡ã€‘         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         2.ã€æŸ¥çœ‹æ¯”èµ›é¡¹ç›®ã€‘         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         3.ã€æŸ¥çœ‹å­¦æ ¡æˆç»©ã€‘         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         4.ã€æŸ¥çœ‹é¡¹ç›®æˆç»©ã€‘         +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         5.ã€è¿”å›ä¸»èœå•ã€‘           +++          +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+          +++         6.ã€é€€å‡ºç³»ç»Ÿã€‘             +++          +\n");
+        printf("\033[41;33m");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\t\t+ ã€æç¤ºã€‘                                                     +\n");
+        printf("\t\t+     1.åˆæ¬¡ä½¿ç”¨æ—¶ï¼Œè¯·å…ˆå½•å…¥ç›¸å…³ä¿¡æ¯                           +\n");
+        printf("\t\t+     2.é»˜è®¤è®¾ç½®ä¸º10æ‰€å‚èµ›å­¦æ ¡ã€5ä¸ªç”·å­é¡¹ç›®å’Œ5ä¸ªå¥³å­é¡¹ç›®       +\n");
+        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        if (flag == 0)
+            printf("è¯·è¾“å…¥å¯¹åº”é€‰é¡¹çš„ç¼–å·ï¼š");
+        else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
+        int option;
+        if (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else
+            flag = 0;
+        switch (option)
+        { 
+        case 1:
+            //æŸ¥çœ‹å‚èµ›å­¦æ ¡
+            showAllSchools();
+            break;
+        case 2:
+            //æŸ¥çœ‹æ¯”èµ›é¡¹ç›®
+            showAllGames();
+            break;
+        case 3:
+            //æŸ¥çœ‹å­¦æ ¡æˆç»©
+            showSchool();
+            break;
+        case 4:
+            //æŸ¥çœ‹é¡¹ç›®æˆç»©
+            showSports();
+            break;
+        case 5:
+            menu();
+            break;
+        case 6:
+            //é€€å‡ºç³»ç»Ÿ
+            saveToFile();
+            Sleep(1000);
+            exit(0);
+            break;
+        default:
+            flag = 1;
+        }
+    }
+}
+//ä¸»èœå•çš„æ“ä½œ
+void menu()
 {
     int flag = 0;
     while (1)
     {
         system("cls");
         printf("\n\n");
-        //´òÓ¡²Ëµ¥À¸
+        //æ‰“å°èœå•æ 
+        printf("\033[46;37m");
         printf("\n\t\t+==============================================================+\n");
-        printf("\t\t+                ÔË¶¯»á·ÖÊıÍ³¼ÆÏµÍ³  Ö÷²Ëµ¥                    +\n");
+        printf("\t\t+                è¿åŠ¨ä¼šåˆ†æ•°ç»Ÿè®¡ç³»ç»Ÿ  ä¸»èœå•                    +\n");
         printf("\t\t+==============================================================+\n");
-        printf("\t\t+ ¡¾ĞÅÏ¢Â¼Èë¡¿                                                 +\n");
-        printf("\t\t+     1. ÊäÈëÑ§Ğ£ºÍÏîÄ¿Ãû³Æ       2.ÊäÈëÏîÄ¿³É¼¨               +\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
+        printf("\033[42;30m");
+        printf("\t\t+          +++        1.ã€ä¿¡æ¯å½•å…¥ã€‘        +++                +\n");
+        printf("\t\t+------------------------------------------------------------â€”â€”+\n");
+        printf("\t\t+          +++        2.ã€æŸ¥çœ‹ä¿¡æ¯ã€‘        +++                +\n");
+        printf("\t\t+----------------------------------------------------------â€”â€”--+\n");
+        printf("\t\t+          +++        3.ã€è®¾ç½®ã€‘            +++                +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ ¡¾²é¿´ĞÅÏ¢¡¿                                                 +\n");
-        printf("\t\t+     3.²é¿´²ÎÈüÑ§Ğ£        4.²é¿´±ÈÈüÏîÄ¿                     +\n");
-        printf("\t\t+     5.²é¿´Ñ§Ğ£³É¼¨        6.²é¿´ÏîÄ¿³É¼¨                     +\n");
+        printf("\t\t+          +++        4.ã€é€€å‡ºç³»ç»Ÿã€‘        +++                +\n");
+        printf("\033[41;33m");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ ¡¾ÉèÖÃ¡¿                                                     +\n");
-        printf("\t\t+     7.ÉèÖÃ                                                   +\n");
+        printf("\t\t+ ã€æç¤ºã€‘                                                     +\n");
+        printf("\t\t+     1.åˆæ¬¡ä½¿ç”¨æ—¶ï¼Œè¯·å…ˆå½•å…¥ç›¸å…³ä¿¡æ¯                           +\n");
+        printf("\t\t+     2.é»˜è®¤è®¾ç½®ä¸º10æ‰€å‚èµ›å­¦æ ¡ã€5ä¸ªç”·å­é¡¹ç›®å’Œ5ä¸ªå¥³å­é¡¹ç›®       +\n");
         printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+  0. ÍË³öÏµÍ³                                                 +\n");
-        printf("\t\t+--------------------------------------------------------------+\n");
-        printf("\t\t+ ¡¾ÌáÊ¾¡¿                                                     +\n");
-        printf("\t\t+     ³õ´ÎÊ¹ÓÃÊ±£¬ÇëÏÈÂ¼ÈëÏà¹ØĞÅÏ¢                             +\n");
-        printf("\t\t+--------------------------------------------------------------+\n");
+        printf("\033[0m");//æ¢å¤é»˜è®¤é¢œè‰²
         if (flag == 0)
-            printf("ÇëÊäÈë¶ÔÓ¦Ñ¡ÏîµÄ±àºÅ£º");
-        else printf("Ã»ÓĞÄúÊäÈëµÄÑ¡Ïî£¬ÇëÖØĞÂÊäÈë£º");
+            printf("è¯·è¾“å…¥å¯¹åº”é€‰é¡¹çš„ç¼–å·ï¼š");
+        else printf("æ²¡æœ‰æ‚¨è¾“å…¥çš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
         int option;
-        scanf("%d", &option);
+        if (scanf("%d", &option) != 1) {
+            printf("éæ³•è¾“å…¥ï¼Œè¯·è¾“å…¥æ•°å­—ï¼š");
+            while (getchar() != '\n'); // æ¸…ç©ºç¼“å†²åŒº
+            flag = 1; // æ ‡è®°é”™è¯¯è¾“å…¥
+            continue; // é‡æ–°å¼€å§‹å¾ªç¯
+        }
+        else 
+            flag = 0;
         switch (option)
         {
-        case 1://ÊäÈëÑ§Ğ£ºÍÏîÄ¿Ãû³Æ
-            InputName();
+        case 1:
+            //ä¿¡æ¯å½•å…¥
+            inputInfo();
             break;
-        case 2://ÊäÈëÏîÄ¿³É¼¨
-            inputScores();
+        case 2:
+            //æŸ¥çœ‹ä¿¡æ¯
+            checkInfo();
             break;
-        case 3://²é¿´²ÎÈüÑ§Ğ£
-            showAllSchools();
-            break;
-        case 4://²é¿´±ÈÈüÏîÄ¿
-            showAllGames();
-            break;
-        case 5://²é¿´Ñ§Ğ£³É¼¨
-            showSchool();
-            break;
-        case 6://²é¿´ÏîÄ¿³É¼¨
-            showSports();
-            break;
-        case 7://ÉèÖÃ
+        case 3:
+            //è®¾ç½®
             setting();
             break;
-        case 0://ÍË³öÏµÍ³
+        case 4:
+            //é€€å‡ºç³»ç»Ÿ
             saveToFile();
             Sleep(1000);
             exit(0);
