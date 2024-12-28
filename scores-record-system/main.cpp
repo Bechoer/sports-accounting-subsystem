@@ -2,25 +2,25 @@
 #include"record.h"
 
 using namespace std;
-// »¶Ó­½çÃæ
+// æ¬¢è¿ç•Œé¢
 void showWelcome()
 {
 	cout << ("\n\n");
 	printf("\033[47;36m");
 	cout << ("\t\t***************************************************************\n");
 	cout << ("\t\t***************************************************************\n");
-	cout << ("\t\t**             »¶ Ó­ Ê¹ ÓÃ                                   **\n");
+	cout << ("\t\t**             æ¬¢ è¿ ä½¿ ç”¨                                   **\n");
 	cout << ("\t\t**             ***********                                   **\n");
 	cout << ("\t\t**           ***************                                 **\n");
 	cout << ("\t\t**         ********************                              **\n");
 	cout << ("\t\t**       ************************                            **\n");
 	cout << ("\t\t**       *                      *                            **\n");
-	cout << ("\t\t**       *  ÔË¶¯»á·ÖÊıÍ³¼ÆÏµÍ³  *                            **\n");
+	cout << ("\t\t**       *  è¿åŠ¨ä¼šåˆ†æ•°ç»Ÿè®¡ç³»ç»Ÿ    *                            **\n");
 	cout << ("\t\t**       *                      *                            **\n");
 	cout << ("\t\t**       ************************                            **\n");
 	cout << ("\t\t**         ********************                              **\n");
 	cout << ("\t\t**           ***************                                 **\n");
-	cout << ("\t\t**             ***********          ×÷Õß£ºÍõ×Óº­ ÀîĞÀâù      **\n");
+	cout << ("\t\t**             ***********          ä½œè€…ï¼šxxx                 **\n");
 	cout << ("\t\t***************************************************************\n");
 	cout << ("\t\t***************************************************************\n");
 	cout << ("\n\n");
@@ -29,19 +29,19 @@ void showWelcome()
 
 	system("cls");
 }
-//Ä£Äâ½ø¶ÈÌõ
+//æ¨¡æ‹Ÿè¿›åº¦æ¡
 void printProgressBar(int progress, int total) {
-	int barWidth = 50;  // ½ø¶ÈÌõµÄ¿í¶È
-	// ¶¯Ì¬×Ö·ûĞ§¹û
-	//const char* characters = "#*=";  // ¶¯Ì¬Ğ§¹ûµÄ×Ö·û¼¯ºÏ
-	int charIndex = (progress / 5) % 3;  // ¸ù¾İ½ø¶ÈÀ´±ä»¯×Ö·û
+	int barWidth = 50;  // è¿›åº¦æ¡çš„å®½åº¦
+	// åŠ¨æ€å­—ç¬¦æ•ˆæœ
+	//const char* characters = "#*=";  // åŠ¨æ€æ•ˆæœçš„å­—ç¬¦é›†åˆ
+	int charIndex = (progress / 5) % 3;  // æ ¹æ®è¿›åº¦æ¥å˜åŒ–å­—ç¬¦
 
 	printf("\t\t\t[");
 	int pos = barWidth * progress / total;
 	printf("\033[42m");
 	for (int i = 0; i < barWidth; i++) {
 		if (i < pos) {
-			//printf("%c", characters[charIndex]);  // Ê¹ÓÃ¶¯Ì¬×Ö·û
+			//printf("%c", characters[charIndex]);  // ä½¿ç”¨åŠ¨æ€å­—ç¬¦
 			printf(" ");
 		}
 		else {
@@ -52,7 +52,7 @@ void printProgressBar(int progress, int total) {
 	}
 	printf("\033[0m");
 	printf("] %d%%\r", progress * 100 / total);
-	// Ë¢ĞÂÊä³ö»º³åÇø£¬È·±£Á¢¼´ÏÔÊ¾
+	// åˆ·æ–°è¾“å‡ºç¼“å†²åŒºï¼Œç¡®ä¿ç«‹å³æ˜¾ç¤º
 	fflush(stdout);  
 }
 void firstDisplay()
@@ -72,19 +72,19 @@ void firstDisplay()
 	printf("\t\t================================================================================\n");
 	printf("\033[0m");
 	printf("\n\n\n\n\n\n");
-	// Òş²Ø¹â±ê
+	// éšè—å…‰æ ‡
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
-	cursorInfo.bVisible = FALSE;  // ÉèÖÃ¹â±ê²»¿É¼û
+	cursorInfo.bVisible = FALSE;  // è®¾ç½®å…‰æ ‡ä¸å¯è§
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
-	int total = 100;  // ½ø¶ÈÌõµÄ×Ü½ø¶È
-	printf("\t\t\t\t\tÏµÍ³ÕıÔÚ¼ÓÔØÖĞ...\n\n");
+	int total = 100;  // è¿›åº¦æ¡çš„æ€»è¿›åº¦
+	printf("\t\t\t\t\tç³»ç»Ÿæ­£åœ¨åŠ è½½ä¸­...\n\n");
 	for (int i = 0; i <= total; i++) {
 		printProgressBar(i, total);
-		Sleep(80);  // ÔİÍ£0.1Ãë£¬Ä£Äâ½ø¶ÈµÄ¸üĞÂ
+		Sleep(80);  // æš‚åœ0.1ç§’ï¼Œæ¨¡æ‹Ÿè¿›åº¦çš„æ›´æ–°
 	}
-	// ÏÔÊ¾¹â±ê
-	cursorInfo.bVisible = TRUE;  // »Ö¸´¹â±ê¿É¼û
+	// æ˜¾ç¤ºå…‰æ ‡
+	cursorInfo.bVisible = TRUE;  // æ¢å¤å…‰æ ‡å¯è§
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 	printf("\n");
 	Sleep(100);
